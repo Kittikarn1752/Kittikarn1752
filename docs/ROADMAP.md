@@ -3,13 +3,13 @@
 Legend: ⬜ todo · 🟨 in progress · ✅ done.
 At the end of each phase, the AI updates the status table, checks off items, and adds ≤ 5 decision lines.
 
-**Current:** P1 🟨 built locally, QA passed (P0 ✅ 2026-10-21)
-**Next action:** the user reviews the QA screenshots, then types `/ship` to create `Kittikarn1752/Kittikarn1752`, push, and verify the live render. After that, close P1 here and start P2 in a fresh session.
+**Current:** P2 ⬜ (P1 ✅ shipped 2026-10-21 · P0 ✅ 2026-10-21)
+**Next action:** start a fresh session with effort high (xhigh for the galaxy) and type `/kickoff` for P2 (live stats, contribution galaxy, `stats.yml`). Open items from P1: Safari/Firefox and real reduced-motion not yet checked; hero role line and HUD text are ~5–7 px at 375 px.
 
 | Phase | Goal | Effort | Status |
 |---|---|---|---|
 | P0 | Setup, identity, inspiration | high | ✅ |
-| P1 | Visual core + first publish | xhigh (max for the hero if pass 1 scores < 9) | 🟨 |
+| P1 | Visual core + first publish | xhigh (max for the hero if pass 1 scores < 9) | ✅ |
 | P2 | Live data + contribution galaxy | high (galaxy: xhigh) | ⬜ |
 | P3 | Feed the Black Hole game | high | ⬜ |
 | P4 | Companion WebGL site | xhigh (max for the shader) | ⬜ |
@@ -43,8 +43,8 @@ Tasks:
   - fonts in `design/fonts/` (with OFL.txt)
   - `npm run build`, `npm run preview`, `npm run check`
 - [x] Build C1 hero, C2 porthole, C3 ×5 cards, C12 headers and footer, C11 buttons, and the README template. → plus C4; 17 SVG, 304 KB total.
-- [x] Run visual-qa until the mean is ≥ 9. Show the user screenshots and get approval. → pass 1: mean 9.0, min 8 (motion, mobile); approval pending.
-- [ ] The user runs `/ship`. That creates `<user>/<user>`, pushes, and verifies the live profile.
+- [x] Run visual-qa until the mean is ≥ 9. Show the user screenshots and get approval. → pass 1: mean 9.0, min 8 (motion, mobile); approved by the user.
+- [x] The user runs `/ship`. That creates `<user>/<user>`, pushes, and verifies the live profile. → `Kittikarn1752/Kittikarn1752`, public, 2026-10-21.
 
 Done when: the live profile shows the hero, intro, cards and contact; QA has passed; ROADMAP is updated.
 
