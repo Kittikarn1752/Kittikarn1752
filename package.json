@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "node src/build.mjs",
+    "fetch": "node src/data/fetch.mjs",
     "preview": "node src/preview.mjs",
     "check": "node tools/check.mjs"
   },

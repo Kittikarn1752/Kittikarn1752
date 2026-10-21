@@ -3,14 +3,14 @@
 Legend: ⬜ todo · 🟨 in progress · ✅ done.
 At the end of each phase, the AI updates the status table, checks off items, and adds ≤ 5 decision lines.
 
-**Current:** P2 ⬜ (P1 ✅ shipped 2026-10-21 · P0 ✅ 2026-10-21)
-**Next action:** start a fresh session with effort high (xhigh for the galaxy) and type `/kickoff` for P2 (live stats, contribution galaxy, `stats.yml`). Open items from P1: Safari/Firefox and real reduced-motion not yet checked; hero role line and HUD text are ~5–7 px at 375 px.
+**Current:** P2 🟨 built and QA'd locally, not shipped (P1 ✅ shipped 2026-10-21 · P0 ✅ 2026-10-21)
+**Next action:** the user runs `/ship` (push), then approves `gh workflow run stats.yml` once and checks the run plus the live render; then close P2 and start P3 in a fresh session. Open items: Safari/Firefox and real reduced-motion not checked; HUD labels are ~5 px at 375 px (hero, C4, C5–C7).
 
 | Phase | Goal | Effort | Status |
 |---|---|---|---|
 | P0 | Setup, identity, inspiration | high | ✅ |
 | P1 | Visual core + first publish | xhigh (max for the hero if pass 1 scores < 9) | ✅ |
-| P2 | Live data + contribution galaxy | high (galaxy: xhigh) | ⬜ |
+| P2 | Live data + contribution galaxy | high (galaxy: xhigh) | 🟨 |
 | P3 | Feed the Black Hole game | high | ⬜ |
 | P4 | Companion WebGL site | xhigh (max for the shader) | ⬜ |
 | P5 | Profile sidebar + final polish | high (final review: max) | ⬜ |
@@ -53,10 +53,10 @@ Done when: the live profile shows the hero, intro, cards and contact; QA has pas
 - **Skills:** space-svg, visual-qa, github-ops
 
 Tasks:
-- [ ] `src/data/fetch.mjs` → `data/github.json`, plus a fixture for offline builds.
-- [ ] Build C5 telemetry, C6 languages, C7 galaxy, C9 missions and the C10 log markers.
-- [ ] `.github/workflows/stats.yml`: daily cron off the hour, plus `workflow_dispatch`. Commit only on change, and include the synced stamp.
-- [ ] Dry-run locally. Then `/ship`, trigger the workflow once via dispatch (with approval), and verify the run and the live render.
+- [x] `src/data/fetch.mjs` → `data/github.json`, plus a fixture for offline builds. → fixture = snapshot of the first real fetch.
+- [x] Build C5 telemetry, C6 languages, C7 galaxy, C9 missions and the C10 log markers. → concept A "Flight deck" picked; C9 hidden (no qualifying repo yet).
+- [x] `.github/workflows/stats.yml`: daily cron off the hour, plus `workflow_dispatch`. Commit only on change, and include the synced stamp. → `17 3 * * *`, checkout@v7, setup-node@v7.
+- [ ] Dry-run locally. Then `/ship`, trigger the workflow once via dispatch (with approval), and verify the run and the live render. → local: fetch, failed-fetch keep, determinism and streak checks pass; QA mean 9.0, mobile 7 (labels ~5 px at 375 px).
 
 Done when: stats refresh automatically and render correctly on the live profile.
 
@@ -97,6 +97,11 @@ Tasks:
 Done when: profile, site and sidebar are complete, and every rubric category scores ≥ 9.
 
 ## Decision log (newest first, one line each)
+- 2026-10-21 · P2: zero-valued metrics are hidden in C5 (user's choice); C9 never lists `<user>/<user>` and stays hidden until a repo has a description or `projects` is filled.
+- 2026-10-21 · P2: Observatory direction A "Flight deck" (HUD brackets, radar, month-labelled galaxy) picked over "Deep field" and "Orbital arc".
+- 2026-10-21 · P2: fetch has no dependencies: GraphQL + REST events via `GITHUB_TOKEN`, local fallback through `gh api` (read-only); current streak counts from yesterday when today is still 0 (UTC).
+- 2026-10-21 · P2: CI runs a full `npm run build` (deterministic, so only data-driven files change); a failed fetch keeps the last data, still commits nothing new, and fails the job.
+- 2026-10-21 · P2: bio rewritten from the user's own facts, DRAFT (b) approved and written to `profile.yaml`.
 - 2026-10-21 · Post-P1: ChatGPT and Antigravity glyphs (not in simple-icons) traced from user-supplied images into `src/lib/brand-icons.mjs`, tinted gold in C4 like the other icons (user chose gold over white). SwiftUI stays a text chip.
 - 2026-10-21 · P1: no links to `<user>.github.io` until P4 (`SITE_LIVE = false` in `src/lib/profile.mjs`): hero unlinked, cards link only via `skills[].link`, no site CTA or website button. Flip it in P4.
 - 2026-10-21 · P1: opentype.js 2.0 `toPathData` turns tiny values (1e-7) into NaN, which silently truncated text; `src/lib/text.mjs` serializes paths itself and the build fails on any NaN.

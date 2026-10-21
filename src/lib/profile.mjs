@@ -66,6 +66,15 @@ export function normalizeProfile(raw, tokens) {
     links.push({ channel, label, href });
   }
 
+  const projects = (raw?.projects ?? []).map((p, i) => {
+    const skill = str(p.skill);
+    if (skill && !SKILL_IDS.includes(skill)) errors.push(`projects[${i}].skill "${skill}" is not one of ${SKILL_IDS.join(', ')}`);
+    const repo = str(p.repo).replace(/^https?:\/\/github\.com\//i, '');
+    const url = cleanUrl(p.url) || (repo ? `https://github.com/${repo}` : '');
+    if (!str(p.name) || !url) errors.push(`projects[${i}] needs a name and a repo or url`);
+    return { name: str(p.name), repo, url, summary: str(p.summary), skill };
+  });
+
   if (errors.length) throw new Error(`profile.yaml:\n- ${errors.join('\n- ')}`);
   return {
     user,
@@ -77,6 +86,7 @@ export function normalizeProfile(raw, tokens) {
     bio: str(id.bio),
     openTo: list(id.open_to),
     skills,
+    projects,
     links,
     site,
   };

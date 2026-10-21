@@ -2,6 +2,10 @@
 // replaced by a generated block; a block with no data renders nothing, and
 // its slot disappears. GitHub-safe output only: no style, class or script.
 import { sections } from '../components/headers.mjs';
+import { metrics, syncedStamp } from '../components/telemetry.mjs';
+import { pct, topLanguages } from '../components/languages.mjs';
+import { galaxyCaption } from '../components/galaxy.mjs';
+import { missions } from '../components/missions.mjs';
 
 // User text goes into HTML blocks, so escape it (bio "-->" stays visible text).
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -41,8 +45,8 @@ const BLOCKS = {
     return lines.join('\n');
   },
 
-  skills: ({ profile }) => {
-    const section = sections(profile).find((s) => s.id === 'skills');
+  skills: ({ profile, data }) => {
+    const section = sections(profile, data).find((s) => s.id === 'skills');
     if (!section) return '';
     const card = (s) => linked(s.link, img(`assets/cards/${s.id}.svg`, [s.title, s.summary, s.stack.join(', ')].filter(Boolean).join(' — '), 'width="270"'));
     // 3 + 2 on desktop; fixed pixel widths wrap to one per row on mobile.
@@ -55,8 +59,37 @@ const BLOCKS = {
     return out.join('\n');
   },
 
-  contact: ({ profile }) => {
-    const section = sections(profile).find((s) => s.id === 'contact');
+  observatory: ({ profile, data, tokens }) => {
+    const gh = data.github;
+    const section = sections(profile, data).find((s) => s.id === 'observatory');
+    if (!section) return '';
+    const stats = metrics(gh).map((m) => `${m.v} ${m.alt}`).join(', ');
+    const out = [header(section), '', `<p align="center">${img('assets/stats/telemetry.svg', `Observatory: ${stats}. Synced ${syncedStamp(gh)}.`, 'width="100%"')}</p>`];
+    if (gh.languages.length) out.push(`<p align="center">${img('assets/stats/languages.svg', `Language orbits: ${topLanguages(gh, tokens).map((l) => `${l.name} ${pct(l.share)}`).join(', ')}`, 'width="100%"')}</p>`);
+    out.push(`<p align="center">${img('assets/galaxy/galaxy.svg', `Contribution galaxy: ${galaxyCaption(gh)}`, 'width="100%"')}</p>`);
+    return out.join('\n');
+  },
+
+  missions: ({ profile, data }) => {
+    const section = sections(profile, data).find((s) => s.id === 'missions');
+    if (!section) return '';
+    const list = missions(profile, data.github);
+    const card = (m, i) => linked(m.url, img(`assets/missions/m${i + 1}.svg`, [m.name, m.summary].filter(Boolean).join(' — '), 'width="270"'));
+    const rows = [list.slice(0, 3), list.slice(3)].filter((row) => row.length);
+    return [header(section), '', ...rows.map((row, r) => `<p align="center">\n  ${row.map((m, i) => card(m, r * 3 + i)).join('\n  ')}\n</p>`)].join('\n');
+  },
+
+  // C10: the last public events between LOG markers, inside <details>.
+  log: ({ data }) => {
+    const events = data.github?.events ?? [];
+    if (!events.length) return '';
+    const md = (s) => esc(s).replace(/([\\`*_[\]#|~])/g, '\\$1');
+    const items = events.map((e) => `- ${e.createdAt.slice(0, 10)} · [${md(e.title)}](${e.url.replace(/[()\s]/g, (ch) => `%${ch.charCodeAt(0).toString(16).toUpperCase().padStart(2, '0')}`)}) · ${md(e.repo)}`);
+    return ['<details>', '<summary><b>Ship\'s log</b> · recent transmissions</summary>', '', '<!-- LOG:START -->', ...items, '<!-- LOG:END -->', '', '</details>'].join('\n');
+  },
+
+  contact: ({ profile, data }) => {
+    const section = sections(profile, data).find((s) => s.id === 'contact');
     if (!section) return '';
     const buttons = profile.links.map((l) => linked(l.href, img(`assets/ui/btn-${l.channel}.svg`, l.label, 'height="44"')));
     return [header(section), '', `<p align="center">\n  ${buttons.join('\n  ')}\n</p>`].join('\n');

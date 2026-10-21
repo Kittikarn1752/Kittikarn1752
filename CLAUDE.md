@@ -54,7 +54,7 @@ The goal: build the best-looking developer profile on GitHub for **Kittikarn**. 
 | `.claude/skills/` | `kickoff`, `space-svg`, `readme-rules`, `visual-qa`, `github-ops`, `ship`. |
 | `README.md` ⚙⧗P1 | The profile, generated from `src/readme/template.md`. |
 | `src/` ⧗P1 | `build.mjs`, `lib/`, `components/<id>.mjs`, `readme/`, `data/` (P2), `game/` (P3). |
-| `assets/` ⚙⧗P1 | `hero/` `intro/` `cards/` `stack/` `stats/` `galaxy/` `game/` `ui/` |
+| `assets/` ⚙⧗P1 | `hero/` `intro/` `cards/` `stack/` `stats/` `galaxy/` `missions/` `game/` `ui/` |
 | `design/fonts/` ⧗P1 | Static TTFs and OFL.txt. |
 | `data/` ⚙⧗P2 | `github.json` (stats) and its fixture; `blackhole.json` (game). |
 | `.github/workflows/` ⧗P2 | `stats.yml` (daily), `feed.yml` (game, P3). |
@@ -75,6 +75,7 @@ Fill in these headings, in this order:
 ## Commands
 - `npm run check`: validates README and every SVG. Add `--publish` for release checks.
 - `npm run build`: profile.yaml + tokens → `assets/` + `README.md`, with sizes and animated-node counts against budget. `-- --only hero,cards` rebuilds some components.
+- `npm run fetch`: public GitHub data → `data/github.json` (uses `GITHUB_TOKEN`, else the local `gh`; keeps the old file on failure). `npm run build -- --fetch` fetches, then builds.
 - `npm run preview`: README rendered by GitHub's Markdown API (offline fallback: marked) at http://localhost:4173. In the app, `preview_start` with name `preview` (`.claude/launch.json`).
 - Record new commands here.
 

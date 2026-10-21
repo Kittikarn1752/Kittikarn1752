@@ -134,6 +134,7 @@ File: `assets/stack/stack.svg`, 880 × about 200, own dark panel.
 File: `assets/stats/telemetry.svg`, 880×200, using `data/github.json`.
 
 - Metrics: stars earned, contributions (last year), commits (last year), PRs, issues, public repos, followers, current streak and longest streak.
+- A metric whose value is 0 is left out; the cells re-flow (one row up to 5, then two rows). Decided by the user, 2026-10-21.
 - Look: HUD corner brackets, a radar sweep, odometer digits that roll in once, and a `SYNCED <UTC>` stamp.
 - Label it OBSERVATORY. Don't call it "Mission Telemetry", because galaxy-profile uses that name.
 
@@ -159,10 +160,10 @@ See §5. Files: `assets/game/blackhole.svg` (880×260) and `assets/ui/btn-feed.s
 ### C9 Missions
 Source:
 - `profile.yaml projects`, if any;
-- otherwise the top 3 public non-fork repos that have a description, ranked by stars;
+- otherwise the top 3 public non-fork repos that have a description, ranked by stars, never the profile repo `<user>/<user>` itself;
 - if none qualify, leave the section out.
 
-Shown as dark SVG cards, 2–3 per row, linking to the repo or url, with live stars and language.
+Shown as dark SVG cards (`assets/missions/m<k>.svg`, 400×200, displayed at 270 px), 3 per row, linking to the repo or url, with live stars and language (each only when known and non-zero).
 
 ### C10 Ship's log
 `<details>` blocks:

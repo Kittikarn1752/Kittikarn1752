@@ -1,0 +1,62 @@
+# Daily live data (SPEC §4): fetch public GitHub data, rebuild, commit only on change.
+# Public repos disable schedules after 60 days without activity. The daily data
+# commit (with the SYNCED stamp) keeps it alive; if it ever stops, re-enable with
+#   gh workflow enable stats.yml
+name: stats
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stats
+  cancel-in-progress: true
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # A failed fetch keeps the last good data/github.json; the build still runs,
+      # and the last step turns the job red.
+      - name: Fetch
+        id: fetch
+        continue-on-error: true
+        run: node src/data/fetch.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: npm run build
+
+      - run: npm run check
+
+      - name: Commit if changed
+        run: |
+          git add -A data assets README.md
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(stats): sync $(date -u +%Y-%m-%d) [skip ci]"
+          git push
+
+      - name: Fail if the fetch failed
+        if: steps.fetch.outcome == 'failure'
+        run: |
+          echo "::error::fetch failed; the profile still shows the last good data"
+          exit 1

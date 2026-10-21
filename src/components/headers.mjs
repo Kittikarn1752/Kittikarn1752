@@ -3,14 +3,19 @@
 // A single comet glides along the rule every 8 s.
 import { el, n, svgDoc } from '../lib/svg.mjs';
 import { textPath } from '../lib/text.mjs';
+import { missions } from './missions.mjs';
 
 const W = 880;
 const H = 64;
 
-// The README sections that have a header in this phase, in display order.
-export function sections(profile) {
+// The README sections that have a header, in display order. Live sections
+// appear only when data/github.json exists.
+export function sections(profile, data = {}) {
   const list = [];
   if (profile.skills.length) list.push({ id: 'skills', title: 'Skills', meta: `${profile.skills.length} ORBITS` });
+  if (data.github) list.push({ id: 'observatory', title: 'Observatory', meta: 'LIVE · SYNCED DAILY' });
+  const m = missions(profile, data.github).length;
+  if (m) list.push({ id: 'missions', title: 'Missions', meta: `${m} MISSION${m > 1 ? 'S' : ''}` });
   if (profile.links.length) list.push({ id: 'contact', title: 'Contact', meta: `${profile.links.length} CHANNEL${profile.links.length > 1 ? 'S' : ''}` });
   return list.map((s, i) => ({ ...s, index: String(i + 1).padStart(2, '0') }));
 }
@@ -46,9 +51,9 @@ function header(section, theme, { fonts, tokens }) {
   return svgDoc({ id, w: W, h: H, title: section.title, css, defs, body });
 }
 
-export default function render({ profile, tokens, fonts }) {
+export default function render({ profile, tokens, fonts, data }) {
   const files = [];
-  for (const section of sections(profile)) {
+  for (const section of sections(profile, data)) {
     for (const theme of ['dark', 'light']) files.push({ path: `assets/ui/h-${section.id}-${theme}.svg`, svg: header(section, theme, { fonts, tokens }) });
   }
   return { files };

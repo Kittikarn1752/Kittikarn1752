@@ -6,7 +6,7 @@
 
 **Building things with gravity.**
 
-Student PPN57 --&gt; IDP02/TUP44
+Student learning to code by building games and websites, now digging into AI and networking. I've taken projects to competitions, and one day I'll run my own company. INFJ · dog person · chill gamer.
 
 📍 Bangkok, Thailand
 
@@ -28,6 +28,25 @@ Student PPN57 --&gt; IDP02/TUP44
   <img src="assets/cards/ios.svg" width="270" alt="iOS Dev — Native iOS apps in SwiftUI — Swift, SwiftUI">
 </p>
 <p align="center"><img src="assets/stack/stack.svg" width="100%" alt="Tech constellation — Web Dev: TypeScript, React, HTML; Game Dev: Unity, Blender; App Dev: Python, C; AI Vibe Code: CLAUDE, ChatGPT, Antigravity; iOS Dev: Swift, SwiftUI"></p>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/ui/h-observatory-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/ui/h-observatory-light.svg">
+  <img src="assets/ui/h-observatory-dark.svg" width="100%" alt="Observatory">
+</picture>
+
+<p align="center"><img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 35 contributions in the last year, 30 commits in the last year, 3 public repos, 1 day current streak, 1 day longest streak. Synced 2026-10-21 14:40 UTC."></p>
+<p align="center"><img src="assets/stats/languages.svg" width="100%" alt="Language orbits: JavaScript 84.3%, HTML 8.1%, CSS 7.6%"></p>
+<p align="center"><img src="assets/galaxy/galaxy.svg" width="100%" alt="Contribution galaxy: 35 contributions in the last year · longest streak 1 day"></p>
+
+<details>
+<summary><b>Ship's log</b> · recent transmissions</summary>
+
+<!-- LOG:START -->
+- 2026-10-21 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/60d6399e2e2f6f319d976198cd87f09ebd6ab782) · Kittikarn1752/Kittikarn1752
+<!-- LOG:END -->
+
+</details>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/ui/h-contact-dark.svg">

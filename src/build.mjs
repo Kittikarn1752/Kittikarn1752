@@ -1,6 +1,7 @@
-// Build: profile.yaml + design/tokens.json → assets/**/*.svg + README.md.
-//   npm run build                       full build
+// Build: profile.yaml + design/tokens.json + data/github.json → assets/**/*.svg + README.md.
+//   npm run build                       full build from local data (no network)
 //   npm run build -- --only hero,cards  only these components (README is always rebuilt)
+//   npm run build -- --fetch            refresh data/github.json first (src/data/fetch.mjs)
 // Components are pure; this file does all the I/O, runs SVGO and reports each
 // file against its budget.
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
@@ -17,15 +18,21 @@ import stack from './components/stack.mjs';
 import headers from './components/headers.mjs';
 import buttons from './components/buttons.mjs';
 import footer from './components/footer.mjs';
+import telemetry from './components/telemetry.mjs';
+import languages from './components/languages.mjs';
+import galaxy from './components/galaxy.mjs';
+import missions from './components/missions.mjs';
+import { DATA_FILE, loadData } from './lib/data.mjs';
+import { spawnSync } from 'node:child_process';
 
 export const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-export const COMPONENTS = { hero, orbit, cards, stack, headers, buttons, footer };
+export const COMPONENTS = { hero, orbit, cards, stack, headers, buttons, footer, telemetry, languages, galaxy, missions };
 
 export function context() {
   const tokens = JSON.parse(readFileSync(join(ROOT, 'design/tokens.json'), 'utf8'));
   const profile = loadProfile(join(ROOT, 'profile.yaml'), tokens);
   const fonts = loadFonts(join(ROOT, 'design/fonts'));
-  const data = { year: new Date().getUTCFullYear() };
+  const data = { year: new Date().getUTCFullYear(), github: loadData(ROOT) };
   return { profile, tokens, fonts, data };
 }
 
@@ -68,7 +75,11 @@ function* walk(dir) {
 function main(args) {
   const onlyIdx = args.indexOf('--only');
   const names = onlyIdx >= 0 ? args[onlyIdx + 1].split(',').map((s) => s.trim()) : Object.keys(COMPONENTS);
+  // --fetch refreshes data/github.json first; a failed fetch still builds from the last good data.
+  let fetchFailed = false;
+  if (args.includes('--fetch')) fetchFailed = spawnSync(process.execPath, [join(ROOT, 'src/data/fetch.mjs')], { stdio: 'inherit' }).status !== 0;
   const ctx = context();
+  if (ctx.data.github?.source && ctx.data.github.source !== DATA_FILE) console.log(`! no ${DATA_FILE}: building from ${ctx.data.github.source}`);
   const files = renderComponents(ctx, names);
   const maxAnimated = ctx.tokens.budget.animatedNodesPerSvg;
   let problems = 0;
@@ -99,6 +110,7 @@ function main(args) {
     console.error(`build: ${problems} file(s) over budget`);
     process.exit(1);
   }
+  if (fetchFailed) process.exit(1);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main(process.argv.slice(2));
