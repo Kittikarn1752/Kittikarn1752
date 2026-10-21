@@ -13,7 +13,7 @@ identity:
   location: "Bangkok, Thailand"                     # ← FILL (optional) e.g. "Bangkok, Thailand"
   role_line: ""                    # ← FILL (optional) e.g. "CS student @ …" or "Freelance developer"
   tagline: "Building things with gravity."   # DRAFT (a), approved 2026-10-21
-  bio: "Student PPN57 --> IDP02/TUP44"                          # ← FILL 1–3 sentences: who you are and what you build
+  bio: "Student learning to code by building games and websites, now digging into AI and networking. I've taken projects to competitions, and one day I'll run my own company. INFJ · dog person · chill gamer."   # DRAFT (b), approved 2026-10-21
   open_to: []                      # ← FILL (optional) any of: freelance, full-time, internship, collab
 
 skills:                            # the five animated planet cards (order = display order)
