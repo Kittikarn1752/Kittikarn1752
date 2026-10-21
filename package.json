@@ -8,9 +8,12 @@
     "node": ">=20"
   },
   "scripts": {
+    "build": "node src/build.mjs",
+    "preview": "node src/preview.mjs",
     "check": "node tools/check.mjs"
   },
   "devDependencies": {
+    "github-markdown-css": "5.9.0",
     "marked": "18.1.1",
     "opentype.js": "2.0.0",
     "simple-icons": "16.35.0",

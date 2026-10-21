@@ -1,0 +1,5 @@
+# Generated SVG/README must be byte-identical on Windows and in Actions.
+* text=auto eol=lf
+*.ttf binary
+*.png binary
+*.webp binary
