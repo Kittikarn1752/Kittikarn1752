@@ -3,8 +3,8 @@
 Legend: ⬜ todo · 🟨 in progress · ✅ done.
 At the end of each phase, the AI updates the status table, checks off items, and adds ≤ 5 decision lines.
 
-**Current:** P2 🟨 built and QA'd locally, not shipped (P1 ✅ shipped 2026-10-21 · P0 ✅ 2026-10-21)
-**Next action:** the user runs `/ship` (push), then approves `gh workflow run stats.yml` once and checks the run plus the live render; then close P2 and start P3 in a fresh session. Open items: Safari/Firefox and real reduced-motion not checked; HUD labels are ~5 px at 375 px (hero, C4, C5–C7).
+**Current:** P2 🟨 pushed 2026-10-21; first workflow run pending (P1 ✅ shipped 2026-10-21 · P0 ✅ 2026-10-21)
+**Next action:** approve `gh workflow run stats.yml` once, check the run and the live render, then mark P2 ✅ and start P3 in a fresh session. Open items: Safari/Firefox and real reduced-motion not checked; HUD labels are ~5 px at 375 px (hero, C4, C5–C7).
 
 | Phase | Goal | Effort | Status |
 |---|---|---|---|
