@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "model": "claude-opus-5-5",
+  "effortLevel": "high",
+  "disableClaudeAiConnectors": true,
+  "permissions": {
+    "defaultMode": "plan",
+    "disableBypassPermissionsMode": "disable",
+    "allow": [
+      "Bash(npm run check)",
+      "Bash(npm run check *)",
+      "Bash(npm run build)",
+      "Bash(npm run build *)",
+      "Bash(npm run preview)",
+      "Bash(npm run preview *)",
+      "Bash(node tools/*)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(gh auth status *)",
+      "Bash(gh repo view *)",
+      "Bash(gh run list *)",
+      "Bash(gh run view *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:docs.github.com)",
+      "WebFetch(domain:code.claude.com)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git remote *)",
+      "Bash(git reset *)",
+      "Bash(git rebase *)",
+      "Bash(git clean *)",
+      "Bash(gh repo create *)",
+      "Bash(gh repo edit *)",
+      "Bash(gh api *)",
+      "Bash(gh secret *)",
+      "Bash(gh workflow *)",
+      "Bash(gh label *)",
+      "Bash(gh issue *)",
+      "Bash(npm install *)",
+      "Bash(npm i *)",
+      "Bash(npm uninstall *)",
+      "Bash(npx *)"
+    ],
+    "deny": [
+      "Bash(git push *--force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * -f*)",
+      "Bash(gh repo delete *)",
+      "Bash(gh auth token)",
+      "Bash(gh auth token *)",
+      "Bash(gh auth logout *)",
+      "Bash(rm -rf *)",
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/tools/check.mjs\" --hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

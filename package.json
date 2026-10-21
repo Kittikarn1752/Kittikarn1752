@@ -1,0 +1,20 @@
+{
+  "name": "kittikarn-event-horizon",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Kittikarn's space-themed GitHub profile: generators, assets and automation.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node tools/check.mjs"
+  },
+  "devDependencies": {
+    "marked": "18.1.1",
+    "opentype.js": "2.0.0",
+    "simple-icons": "16.35.0",
+    "svgo": "4.1.0",
+    "yaml": "2.9.1"
+  }
+}

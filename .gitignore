@@ -1,0 +1,20 @@
+# deps, caches, logs
+node_modules/
+.cache/
+*.log
+
+# personal Claude Code overrides (shared settings live in .claude/settings.json)
+.claude/settings.local.json
+
+# companion site is its own git repo → <username>.github.io
+/site/
+
+# local previews / renders / scratch
+/tmp/
+/preview/
+
+# OS files & secrets
+.DS_Store
+Thumbs.db
+.env
+.env.*

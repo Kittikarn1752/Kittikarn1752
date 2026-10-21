@@ -1,0 +1,81 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  profile.yaml — single source of truth for Kittikarn's GitHub profile.
+#  กรอกส่วน A (บรรทัดที่มี ← FILL) · เว้นว่าง = ไม่แสดง · คู่มือ: docs/USAGE.th.md §3
+#  Rules: "" or [] hides that element. The AI never invents values.
+#  Required before publishing: identity.github_username
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Section A · Your real information ───────────────────────────────────────
+identity:
+  display_name: "Kittikarn"        # shown in the hero
+  full_name: ""                    # ← FILL (optional)
+  github_username: "Kittikarn1752" # verified via gh 2026-10-21
+  location: ""                     # ← FILL (optional) e.g. "Bangkok, Thailand"
+  role_line: ""                    # ← FILL (optional) e.g. "CS student @ …" or "Freelance developer"
+  tagline: ""                      # ← FILL, or leave "" and the AI drafts 3 options for you to pick
+  bio: ""                          # ← FILL 1–3 sentences: who you are and what you build
+  open_to: []                      # ← FILL (optional) any of: freelance, full-time, internship, collab
+
+skills:                            # the five animated planet cards (order = display order)
+  - id: web
+    title: "Web Dev"
+    summary: ""                    # ← FILL one line (≤ 40 chars)
+    stack: []                      # ← FILL only what you really use, e.g. ["TypeScript", "React"]
+                                   #   hint: Supabase & Vercel are connected on this PC — add them only if you use them
+    since: ""                      # optional, e.g. "2022"
+    link: ""                       # optional repo/demo URL (default: companion site #web)
+  - id: game
+    title: "Game Dev"
+    summary: ""                    # ← FILL
+    stack: []                      # ← FILL  hint: Unity & Blender are connected on this PC
+    since: ""
+    link: ""
+  - id: app
+    title: "App Dev"
+    summary: ""                    # ← FILL
+    stack: []                      # ← FILL
+    since: ""
+    link: ""
+  - id: ai
+    title: "AI Vibe Code"
+    summary: ""                    # ← FILL
+    stack: []                      # ← FILL tools/models you actually use
+    since: ""
+    link: ""
+  - id: ios
+    title: "iOS Dev"
+    summary: ""                    # ← FILL
+    stack: []                      # ← FILL e.g. ["Swift", "SwiftUI"]
+    since: ""
+    link: ""
+
+projects: []                       # ← FILL featured projects; [] = auto-pick top public repos
+#  - name: "Project name"
+#    repo: "owner/repo"            # optional
+#    url: ""                       # live demo / store link (optional)
+#    summary: ""                   # one line
+#    skill: web                    # web | game | app | ai | ios
+
+links:                             # public contact buttons — "" = hidden
+  email: ""
+  website: ""                      # "" = companion site https://<github_username>.github.io
+  linkedin: ""
+  x: ""
+  instagram: ""
+  facebook: ""
+  youtube: ""
+  discord: ""
+
+avatar:
+  mode: keep                       # keep | monogram (AI designs a space "K" avatar; you upload it)
+
+# ── Section B · Decisions (recommended defaults accepted 2026-10-21) ────────
+settings:
+  theme: event-horizon             # event-horizon | nebula-neon | aurora-quasar
+  readme_language: en              # en | th | en+th
+  interactive_layers: [readme, game, site]   # built in phases (docs/ROADMAP.md)
+  site_repo: user-site             # <github_username>.github.io (separate repo)
+  sidebar: [readme-visual-column, github-profile-sidebar]
+  stats_scope: public              # public | public+private (needs a token you create)
+  ai_files_public: true            # CLAUDE.md, prompts, skills are committed publicly
+  references: []                   # optional: profile URLs you like

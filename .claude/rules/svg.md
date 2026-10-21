@@ -1,0 +1,24 @@
+---
+paths:
+  - "assets/**/*.svg"
+  - "src/components/**"
+  - "src/lib/**"
+---
+# SVG rules (rendered as <img> on github.com)
+- Everything in `assets/` is generated. Edit the generator in `src/components/`, then run `npm run build`.
+- Forbidden: `<script>`, event attributes, `javascript:` URLs, and external URLs (fonts, images, CSS). Only data URIs are allowed.
+- Text: convert display text to paths (opentype.js), or embed a subset font as a data URI. Never rely on installed fonts.
+- Animation:
+  - Use CSS `@keyframes` on transform, opacity and stroke-dashoffset.
+  - Use SMIL only for motion paths, and only inside `.smil` groups.
+  - Never animate filter parameters.
+- Transforms:
+  - A CSS-animated element must not also have a `transform` attribute. Wrap it in a group instead.
+  - To rotate an element around its own center, use `transform-box: fill-box; transform-origin: center`.
+- Reduced motion: always include `@media (prefers-reduced-motion: reduce){*{animation:none!important}.smil{display:none}.static{display:inline}}`.
+- With animations off, the design must be complete.
+- Loops must be seamless: every period divides 24 s. Use negative delays to desync elements.
+- Every SVG has `role="img"` and a `<title>`.
+- Colors and size budgets come from `design/tokens.json`.
+- Output is deterministic: seeded RNG, at most 2 decimals.
+- For techniques and recipes, use the skill `space-svg`.
