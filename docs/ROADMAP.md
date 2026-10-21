@@ -3,14 +3,14 @@
 Legend: ⬜ todo · 🟨 in progress · ✅ done.
 At the end of each phase, the AI updates the status table, checks off items, and adds ≤ 5 decision lines.
 
-**Current:** P2 🟨 pushed 2026-10-21; first workflow run pending (P1 ✅ shipped 2026-10-21 · P0 ✅ 2026-10-21)
-**Next action:** approve `gh workflow run stats.yml` once, check the run and the live render, then mark P2 ✅ and start P3 in a fresh session. Open items: Safari/Firefox and real reduced-motion not checked; HUD labels are ~5 px at 375 px (hero, C4, C5–C7).
+**Current:** P3 ⬜ (P2 ✅ shipped 2026-10-21 · P1 ✅ 2026-10-21 · P0 ✅ 2026-10-21)
+**Next action:** approve the small fetch fix (local `gh` fallback counts private contributions, see the decision log) and refresh the fixture from CI data; then start a fresh session with effort high and `/kickoff` P3. Open items: Safari/Firefox and real reduced-motion not checked; HUD labels are ~5 px at 375 px (hero, C4, C5–C7).
 
 | Phase | Goal | Effort | Status |
 |---|---|---|---|
 | P0 | Setup, identity, inspiration | high | ✅ |
 | P1 | Visual core + first publish | xhigh (max for the hero if pass 1 scores < 9) | ✅ |
-| P2 | Live data + contribution galaxy | high (galaxy: xhigh) | 🟨 |
+| P2 | Live data + contribution galaxy | high (galaxy: xhigh) | ✅ |
 | P3 | Feed the Black Hole game | high | ⬜ |
 | P4 | Companion WebGL site | xhigh (max for the shader) | ⬜ |
 | P5 | Profile sidebar + final polish | high (final review: max) | ⬜ |
@@ -56,7 +56,7 @@ Tasks:
 - [x] `src/data/fetch.mjs` → `data/github.json`, plus a fixture for offline builds. → fixture = snapshot of the first real fetch.
 - [x] Build C5 telemetry, C6 languages, C7 galaxy, C9 missions and the C10 log markers. → concept A "Flight deck" picked; C9 hidden (no qualifying repo yet).
 - [x] `.github/workflows/stats.yml`: daily cron off the hour, plus `workflow_dispatch`. Commit only on change, and include the synced stamp. → `17 3 * * *`, checkout@v7, setup-node@v7.
-- [ ] Dry-run locally. Then `/ship`, trigger the workflow once via dispatch (with approval), and verify the run and the live render. → local: fetch, failed-fetch keep, determinism and streak checks pass; QA mean 9.0, mobile 7 (labels ~5 px at 375 px).
+- [x] Dry-run locally. Then `/ship`, trigger the workflow once via dispatch (with approval), and verify the run and the live render. → run 39622015926 green in 12 s, bot commit 930c1c0, live alt shows the CI data; local: fetch, failed-fetch keep, determinism and streak checks pass; QA mean 9.0, mobile 7 (labels ~5 px at 375 px).
 
 Done when: stats refresh automatically and render correctly on the live profile.
 
@@ -97,6 +97,7 @@ Tasks:
 Done when: profile, site and sidebar are complete, and every rubric category scores ≥ 9.
 
 ## Decision log (newest first, one line each)
+- 2026-10-21 · P2 found: the local fetch (gh as the owner) counts private contributions (35/30 vs public 29/26 from `GITHUB_TOKEN`). The push bd6c4c9 showed those counts for ~5 min until the CI sync; only counts, no private names. CI data is the source of truth; the fixture still holds the local snapshot until the fix.
 - 2026-10-21 · P2: zero-valued metrics are hidden in C5 (user's choice); C9 never lists `<user>/<user>` and stays hidden until a repo has a description or `projects` is filled.
 - 2026-10-21 · P2: Observatory direction A "Flight deck" (HUD brackets, radar, month-labelled galaxy) picked over "Deep field" and "Orbital arc".
 - 2026-10-21 · P2: fetch has no dependencies: GraphQL + REST events via `GITHUB_TOKEN`, local fallback through `gh api` (read-only); current streak counts from yesterday when today is still 0 (UTC).
