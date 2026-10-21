@@ -3,13 +3,13 @@
 Legend: ⬜ todo · 🟨 in progress · ✅ done.
 At the end of each phase, the AI updates the status table, checks off items, and adds ≤ 5 decision lines.
 
-**Current:** P1 ⬜ (P0 ✅ 2026-10-21)
-**Next action:** the user fills `profile.yaml` Section A. P1 needs at least `tagline` (pick a DRAFT under P0 or write one), `bio`, the five `skills[].summary` and ≥ 1 `links` entry (`stack` unlocks C4). Then switch effort to xhigh and type `/kickoff` in a fresh session.
+**Current:** P1 🟨 built locally, QA passed (P0 ✅ 2026-10-21)
+**Next action:** the user reviews the QA screenshots, then types `/ship` to create `Kittikarn1752/Kittikarn1752`, push, and verify the live render. After that, close P1 here and start P2 in a fresh session.
 
 | Phase | Goal | Effort | Status |
 |---|---|---|---|
 | P0 | Setup, identity, inspiration | high | ✅ |
-| P1 | Visual core + first publish | xhigh (max for the hero if pass 1 scores < 9) | ⬜ |
+| P1 | Visual core + first publish | xhigh (max for the hero if pass 1 scores < 9) | 🟨 |
 | P2 | Live data + contribution galaxy | high (galaxy: xhigh) | ⬜ |
 | P3 | Feed the Black Hole game | high | ⬜ |
 | P4 | Companion WebGL site | xhigh (max for the shader) | ⬜ |
@@ -37,13 +37,13 @@ Done when: environment ✅, identity ✅, findings recorded, dependencies approv
 - **Skills:** space-svg, readme-rules, visual-qa
 
 Tasks:
-- [ ] Concept sprint: 3 static hero directions + 1 card direction (cheap thumbnails). The user picks one.
-- [ ] Pipeline:
+- [x] Concept sprint: 3 static hero directions + 1 card direction (cheap thumbnails). The user picks one. → A "Gargantua".
+- [x] Pipeline:
   - `src/build.mjs` (profile.yaml + tokens → assets + README)
   - fonts in `design/fonts/` (with OFL.txt)
   - `npm run build`, `npm run preview`, `npm run check`
-- [ ] Build C1 hero, C2 porthole, C3 ×5 cards, C12 headers and footer, C11 buttons, and the README template.
-- [ ] Run visual-qa until the mean is ≥ 9. Show the user screenshots and get approval.
+- [x] Build C1 hero, C2 porthole, C3 ×5 cards, C12 headers and footer, C11 buttons, and the README template. → plus C4; 17 SVG, 304 KB total.
+- [x] Run visual-qa until the mean is ≥ 9. Show the user screenshots and get approval. → pass 1: mean 9.0, min 8 (motion, mobile); approval pending.
 - [ ] The user runs `/ship`. That creates `<user>/<user>`, pushes, and verifies the live profile.
 
 Done when: the live profile shows the hero, intro, cards and contact; QA has passed; ROADMAP is updated.
@@ -97,6 +97,11 @@ Tasks:
 Done when: profile, site and sidebar are complete, and every rubric category scores ≥ 9.
 
 ## Decision log (newest first, one line each)
+- 2026-10-21 · P1: no links to `<user>.github.io` until P4 (`SITE_LIVE = false` in `src/lib/profile.mjs`): hero unlinked, cards link only via `skills[].link`, no site CTA or website button. Flip it in P4.
+- 2026-10-21 · P1: opentype.js 2.0 `toPathData` turns tiny values (1e-7) into NaN, which silently truncated text; `src/lib/text.mjs` serializes paths itself and the build fails on any NaN.
+- 2026-10-21 · P1: `.gitattributes` `* text=auto eol=lf` added (closes the CRLF item). Fonts pinned in `design/fonts/SOURCES.md`; `github-markdown-css` 5.9.0 added for the preview.
+- 2026-10-21 · P1: hero direction A "Gargantua" picked; the role rotator keeps SPEC's 15 s cycle (5 × 3 s), the one loop that doesn't divide 24 s. Porthole at `width="34%"` (38% left a gap under the short intro).
+- 2026-10-21 · P1 approved values written to `profile.yaml`: tagline (a), five skill summaries, game stack split into Unity + Blender. Link URLs are stripped of `fbclid`/`utm_*` at build time.
 - 2026-10-21 · Open for P1: Git for Windows sets `core.autocrlf=true` system-wide; propose a `.gitattributes` with `eol=lf` so generated SVG/README stay byte-identical on Windows and Actions.
 - 2026-10-21 · P1 dependencies approved and pinned exact as devDependencies: yaml 2.9.1, svgo 4.1.0, opentype.js 2.0.0, simple-icons 16.35.0, marked 18.1.1 (offline markdown renderer for preview).
 - 2026-10-21 · P0: repo initialised on `main` with a repo-local identity `Kittikarn` <168161807+Kittikarn1752@users.noreply.github.com>; no global identity is set on this PC. `Kittikarn1752/Kittikarn1752` doesn't exist yet.

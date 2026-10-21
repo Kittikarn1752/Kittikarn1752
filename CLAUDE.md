@@ -74,7 +74,9 @@ Fill in these headings, in this order:
 
 ## Commands
 - `npm run check`: validates README and every SVG. Add `--publish` for release checks.
-- P1 adds `build` and `preview`. Record new commands here.
+- `npm run build`: profile.yaml + tokens → `assets/` + `README.md`, with sizes and animated-node counts against budget. `-- --only hero,cards` rebuilds some components.
+- `npm run preview`: README rendered by GitHub's Markdown API (offline fallback: marked) at http://localhost:4173. In the app, `preview_start` with name `preview` (`.claude/launch.json`).
+- Record new commands here.
 
 ## Conventions
 - Node ≥ 20 with ESM. Keep dependencies minimal, and get approval for each one.
