@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T14:40:28Z",
+  "generatedAt": "2026-10-21T15:01:35Z",
   "user": {
     "login": "Kittikarn1752",
     "name": "Kittikarn",
@@ -8,8 +8,8 @@
   },
   "totals": {
     "stars": 0,
-    "contributionsYear": 35,
-    "commitsYear": 30,
+    "contributionsYear": 29,
+    "commitsYear": 26,
     "prs": 0,
     "issues": 0
   },
@@ -20,18 +20,18 @@
   "languages": [
     {
       "name": "JavaScript",
-      "bytes": 93991,
-      "share": 0.8427
+      "bytes": 133679,
+      "share": 0.884
     },
     {
       "name": "HTML",
       "bytes": 9072,
-      "share": 0.0813
+      "share": 0.06
     },
     {
       "name": "CSS",
       "bytes": 8476,
-      "share": 0.076
+      "share": 0.056
     }
   ],
   "calendar": [
@@ -303,7 +303,7 @@
     {
       "date": "2025-12-11",
       "count": 8,
-      "level": 3
+      "level": 4
     },
     {
       "date": "2025-12-12",
@@ -618,7 +618,7 @@
     {
       "date": "2026-02-12",
       "count": 7,
-      "level": 3
+      "level": 4
     },
     {
       "date": "2026-02-13",
@@ -653,7 +653,7 @@
     {
       "date": "2026-02-19",
       "count": 6,
-      "level": 2
+      "level": 4
     },
     {
       "date": "2026-02-20",
@@ -1842,8 +1842,8 @@
     },
     {
       "date": "2026-10-15",
-      "count": 1,
-      "level": 1
+      "count": 0,
+      "level": 0
     },
     {
       "date": "2026-10-16",
@@ -1872,7 +1872,7 @@
     },
     {
       "date": "2026-10-21",
-      "count": 13,
+      "count": 8,
       "level": 4
     }
   ],
@@ -1886,6 +1886,13 @@
     }
   ],
   "events": [
+    {
+      "type": "PushEvent",
+      "repo": "Kittikarn1752/Kittikarn1752",
+      "title": "Pushed to main",
+      "url": "https://github.com/Kittikarn1752/Kittikarn1752/commit/bd6c4c9a2829113c989bb489c04b8e49580f860a",
+      "createdAt": "2026-10-21T15:00:25Z"
+    },
     {
       "type": "PushEvent",
       "repo": "Kittikarn1752/Kittikarn1752",

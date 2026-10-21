@@ -35,14 +35,15 @@ Student learning to code by building games and websites, now digging into AI and
   <img src="assets/ui/h-observatory-dark.svg" width="100%" alt="Observatory">
 </picture>
 
-<p align="center"><img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 35 contributions in the last year, 30 commits in the last year, 3 public repos, 1 day current streak, 1 day longest streak. Synced 2026-10-21 14:40 UTC."></p>
-<p align="center"><img src="assets/stats/languages.svg" width="100%" alt="Language orbits: JavaScript 84.3%, HTML 8.1%, CSS 7.6%"></p>
-<p align="center"><img src="assets/galaxy/galaxy.svg" width="100%" alt="Contribution galaxy: 35 contributions in the last year · longest streak 1 day"></p>
+<p align="center"><img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 29 contributions in the last year, 26 commits in the last year, 3 public repos, 1 day current streak, 1 day longest streak. Synced 2026-10-21 15:01 UTC."></p>
+<p align="center"><img src="assets/stats/languages.svg" width="100%" alt="Language orbits: JavaScript 88.4%, HTML 6.0%, CSS 5.6%"></p>
+<p align="center"><img src="assets/galaxy/galaxy.svg" width="100%" alt="Contribution galaxy: 29 contributions in the last year · longest streak 1 day"></p>
 
 <details>
 <summary><b>Ship's log</b> · recent transmissions</summary>
 
 <!-- LOG:START -->
+- 2026-10-21 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/bd6c4c9a2829113c989bb489c04b8e49580f860a) · Kittikarn1752/Kittikarn1752
 - 2026-10-21 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/60d6399e2e2f6f319d976198cd87f09ebd6ab782) · Kittikarn1752/Kittikarn1752
 <!-- LOG:END -->
 
