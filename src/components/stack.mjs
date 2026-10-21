@@ -62,7 +62,7 @@ export default function render({ profile, tokens, fonts }) {
       if (icon) {
         nodes += el('circle', { cx: x, cy: y, r: 22, fill: s.color, opacity: 0.08 });
         nodes += el('circle', { cx: x, cy: y, r: 15, fill: c.space.void, stroke: s.color, 'stroke-width': 1, 'stroke-opacity': 0.7 });
-        nodes += el('path', { d: icon.path, fill: s.color, transform: `translate(${n(x - 8)} ${n(y - 8)}) scale(.6667)` });
+        nodes += el('path', { d: icon.path, fill: s.color, 'fill-rule': icon.fillRule, transform: `translate(${n(x - 8)} ${n(y - 8)}) scale(.6667)` });
         nodes += el('path', { d: textPath(fonts.mono, tech, { x, y: y + 30, size: 9.5, anchor: 'middle' }).d, fill: c.text.mutedOnDark });
       } else {
         const size = 11;
