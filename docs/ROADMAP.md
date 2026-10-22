@@ -3,15 +3,15 @@
 Legend: ⬜ todo · 🟨 in progress · ✅ done.
 At the end of each phase, the AI updates the status table, checks off items, and adds ≤ 5 decision lines.
 
-**Current:** P3 ⬜ (P2 ✅ shipped 2026-10-21 · P1 ✅ 2026-10-21 · P0 ✅ 2026-10-21)
-**Next action:** approve the small fetch fix (local `gh` fallback counts private contributions, see the decision log) and refresh the fixture from CI data; then start a fresh session with effort high and `/kickoff` P3. Open items: Safari/Firefox and real reduced-motion not checked; HUD labels are ~5 px at 375 px (hero, C4, C5–C7).
+**Current:** P3 🟨 shipped 2026-10-22, live issue test pending (P2 ✅ 2026-10-21 · P1 ✅ 2026-10-21 · P0 ✅ 2026-10-21)
+**Next action:** create the `blackhole` label (approval), then the user opens one `feed|star` issue (round trip < 2 min) and a second one (must hit the cooldown); then mark P3 ✅. Open items: Safari/Firefox and real reduced-motion not checked; HUD labels ~5 px at 375 px on the hero, C4 and C5–C7 (the game panel has its own mobile file now).
 
 | Phase | Goal | Effort | Status |
 |---|---|---|---|
 | P0 | Setup, identity, inspiration | high | ✅ |
 | P1 | Visual core + first publish | xhigh (max for the hero if pass 1 scores < 9) | ✅ |
 | P2 | Live data + contribution galaxy | high (galaxy: xhigh) | ✅ |
-| P3 | Feed the Black Hole game | high | ⬜ |
+| P3 | Feed the Black Hole game | high | 🟨 |
 | P4 | Companion WebGL site | xhigh (max for the shader) | ⬜ |
 | P5 | Profile sidebar + final polish | high (final review: max) | ⬜ |
 
@@ -65,8 +65,8 @@ Done when: stats refresh automatically and render correctly on the live profile.
 - **Skills:** space-svg, github-ops
 
 Tasks:
-- [ ] `src/game/feed.mjs` (pure logic + dry-run tests), the `blackhole.svg` generator, and the README block.
-- [ ] `.github/workflows/feed.yml` and the `blackhole` label.
+- [x] `src/game/feed.mjs` (pure logic + dry-run tests), the `blackhole.svg` generator, and the README block. → 15 `node:test` cases (`npm test`); direction A "Accretion gauge"; `blackhole-mobile.svg` via `<picture>` for ≤ 600 px.
+- [ ] `.github/workflows/feed.yml` and the `blackhole` label. → workflow shipped; label pending approval.
 - [ ] `/ship`. The user opens one real issue: verify the round trip takes under 2 min. A second issue from the same user must hit the cooldown.
 
 Done when: the live game works and rejects spam according to the rules.
@@ -97,6 +97,11 @@ Tasks:
 Done when: profile, site and sidebar are complete, and every rubric category scores ≥ 9.
 
 ## Decision log (newest first, one line each)
+- 2026-10-22 · P3: direction A "Accretion gauge" picked; the hole reuses the hero's `blackHole()` (now exported, hero.svg byte-identical), r = 18 + 9·log10(1 + mass), capped at 46. Narrow screens get a 360 px file through `<picture media="(max-width: 600px)">` (GitHub's sanitizer keeps it).
+- 2026-10-22 · P3: `feed.yml` uses `concurrency.queue: max` (default keeps only 1 pending run) and every run sweeps all open `feed|` issues oldest first; time comes from the issue's created_at, so re-runs agree. A rejected push replays on the latest main (×3).
+- 2026-10-22 · P3: avatars are embedded in the SVG (user's choice): CI caches 48 px files for the 8 latest travelers in `data/avatars/` and prunes the rest; a missing avatar shows an initial. The issue text discloses that the handle and avatar appear on the profile.
+- 2026-10-22 · P3: bot copy, issue text and panel copy approved as drafted. Bots are ignored silently; rejected issues close as "not planned", fed ones as "completed".
+- 2026-10-22 · P2 carry-over fixed: fetch without `GITHUB_TOKEN` writes nothing unless `--force`; the fixture is the CI snapshot from 930c1c0.
 - 2026-10-21 · P2 found: the local fetch (gh as the owner) counts private contributions (35/30 vs public 29/26 from `GITHUB_TOKEN`). The push bd6c4c9 showed those counts for ~5 min until the CI sync; only counts, no private names. CI data is the source of truth; the fixture still holds the local snapshot until the fix.
 - 2026-10-21 · P2: zero-valued metrics are hidden in C5 (user's choice); C9 never lists `<user>/<user>` and stays hidden until a repo has a description or `projects` is filled.
 - 2026-10-21 · P2: Observatory direction A "Flight deck" (HUD brackets, radar, month-labelled galaxy) picked over "Deep field" and "Orbital arc".
