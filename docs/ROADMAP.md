@@ -3,15 +3,15 @@
 Legend: ⬜ todo · 🟨 in progress · ✅ done.
 At the end of each phase, the AI updates the status table, checks off items, and adds ≤ 5 decision lines.
 
-**Current:** P3 🟨 shipped 2026-10-22, live issue test pending (P2 ✅ 2026-10-21 · P1 ✅ 2026-10-21 · P0 ✅ 2026-10-21)
-**Next action:** create the `blackhole` label (approval), then the user opens one `feed|star` issue (round trip < 2 min) and a second one (must hit the cooldown); then mark P3 ✅. Open items: Safari/Firefox and real reduced-motion not checked; HUD labels ~5 px at 375 px on the hero, C4 and C5–C7 (the game panel has its own mobile file now).
+**Current:** P4 ⬜ (P3 ✅ 2026-10-22 · P2 ✅ 2026-10-21 · P1 ✅ 2026-10-21 · P0 ✅ 2026-10-21)
+**Next action:** start a fresh session with effort xhigh and `/kickoff` P4. Open items: Safari/Firefox, the GitHub mobile app (may ignore `<picture>`) and real reduced-motion not checked; HUD labels ~5 px at 375 px on the hero, C4 and C5–C7 (the game panel's mobile file shows the fix pattern).
 
 | Phase | Goal | Effort | Status |
 |---|---|---|---|
 | P0 | Setup, identity, inspiration | high | ✅ |
 | P1 | Visual core + first publish | xhigh (max for the hero if pass 1 scores < 9) | ✅ |
 | P2 | Live data + contribution galaxy | high (galaxy: xhigh) | ✅ |
-| P3 | Feed the Black Hole game | high | 🟨 |
+| P3 | Feed the Black Hole game | high | ✅ |
 | P4 | Companion WebGL site | xhigh (max for the shader) | ⬜ |
 | P5 | Profile sidebar + final polish | high (final review: max) | ⬜ |
 
@@ -66,8 +66,8 @@ Done when: stats refresh automatically and render correctly on the live profile.
 
 Tasks:
 - [x] `src/game/feed.mjs` (pure logic + dry-run tests), the `blackhole.svg` generator, and the README block. → 15 `node:test` cases (`npm test`); direction A "Accretion gauge"; `blackhole-mobile.svg` via `<picture>` for ≤ 600 px.
-- [ ] `.github/workflows/feed.yml` and the `blackhole` label. → workflow shipped; label pending approval.
-- [ ] `/ship`. The user opens one real issue: verify the round trip takes under 2 min. A second issue from the same user must hit the cooldown.
+- [x] `.github/workflows/feed.yml` and the `blackhole` label. → label FFB547 (GitHub had auto-created it grey on the first feed; recoloured).
+- [x] `/ship`. The user opens one real issue: verify the round trip takes under 2 min. A second issue from the same user must hit the cooldown. → #1 fed in 15 s (run 39703031523, bot commit 3257deb, mass 1, avatar live); #2–#4 got the cooldown reply and closed as not planned; local rebuild of the CI data is byte-identical.
 
 Done when: the live game works and rejects spam according to the rules.
 
@@ -97,6 +97,7 @@ Tasks:
 Done when: profile, site and sidebar are complete, and every rubric category scores ≥ 9.
 
 ## Decision log (newest first, one line each)
+- 2026-10-22 · P3 closed: live round trip 15 s; `?v=<mass>` survives GitHub's raw URL rewrite, so the new hole shows on the next page load.
 - 2026-10-22 · P3: direction A "Accretion gauge" picked; the hole reuses the hero's `blackHole()` (now exported, hero.svg byte-identical), r = 18 + 9·log10(1 + mass), capped at 46. Narrow screens get a 360 px file through `<picture media="(max-width: 600px)">` (GitHub's sanitizer keeps it).
 - 2026-10-22 · P3: `feed.yml` uses `concurrency.queue: max` (default keeps only 1 pending run) and every run sweeps all open `feed|` issues oldest first; time comes from the issue's created_at, so re-runs agree. A rejected push replays on the latest main (×3).
 - 2026-10-22 · P3: avatars are embedded in the SVG (user's choice): CI caches 48 px files for the 8 latest travelers in `data/avatars/` and prunes the rest; a missing avatar shows an initial. The issue text discloses that the handle and avatar appear on the profile.
