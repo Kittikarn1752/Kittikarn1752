@@ -46,7 +46,10 @@ Student learning to code by building games and websites, now digging into AI and
 </picture>
 
 <!-- FEED:START -->
-<p align="center"><a href="https://github.com/Kittikarn1752/Kittikarn1752/issues/new?title=feed%7Cstar&amp;body=Press%20**Submit%20new%20issue**%20to%20throw%20a%20star%20into%20the%20black%20hole.%20A%20bot%20adds%20it%20within%20a%20minute%20or%20two%2C%20replies%20here%20and%20closes%20the%20issue.%20Your%20%40handle%20and%20avatar%20will%20appear%20on%20this%20profile.%20One%20star%20per%20person%20per%20hour."><img src="assets/game/blackhole.svg?v=0" width="100%" alt="Feed the Black Hole: 0 stars devoured. Opens an issue that throws in a star."></a></p>
+<p align="center"><a href="https://github.com/Kittikarn1752/Kittikarn1752/issues/new?title=feed%7Cstar&amp;body=Press%20**Submit%20new%20issue**%20to%20throw%20a%20star%20into%20the%20black%20hole.%20A%20bot%20adds%20it%20within%20a%20minute%20or%20two%2C%20replies%20here%20and%20closes%20the%20issue.%20Your%20%40handle%20and%20avatar%20will%20appear%20on%20this%20profile.%20One%20star%20per%20person%20per%20hour."><picture>
+  <source media="(max-width: 600px)" srcset="assets/game/blackhole-mobile.svg?v=0">
+  <img src="assets/game/blackhole.svg?v=0" width="100%" alt="Feed the Black Hole: 0 stars devoured. Opens an issue that throws in a star.">
+</picture></a></p>
 <p align="center"><a href="https://github.com/Kittikarn1752/Kittikarn1752/issues/new?title=feed%7Cstar&amp;body=Press%20**Submit%20new%20issue**%20to%20throw%20a%20star%20into%20the%20black%20hole.%20A%20bot%20adds%20it%20within%20a%20minute%20or%20two%2C%20replies%20here%20and%20closes%20the%20issue.%20Your%20%40handle%20and%20avatar%20will%20appear%20on%20this%20profile.%20One%20star%20per%20person%20per%20hour."><img src="assets/ui/btn-feed.svg" height="44" alt="Feed the black hole"></a></p>
 <!-- FEED:END -->
 

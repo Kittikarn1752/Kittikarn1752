@@ -21,7 +21,24 @@ export const COPY = {
   button: 'Feed the black hole',
 };
 
-const HOLE = [624, 130];
+// Direction A "Accretion gauge" (picked in the P3 concept sprint): mass and
+// travelers on the left, the hole on the right like the hero. The mobile file
+// (README <picture>, narrow screens) keeps the same layout at 360 px wide with
+// a smaller hole, so its type stays legible at phone width.
+const LAYOUTS = {
+  desktop: {
+    file: 'assets/game/blackhole.svg', w: 880, h: 260, hole: [624, 130], scale: 1, stars: 64,
+    head: { x: 48, y: 50, size: 12 }, digits: { x: 46, y: 122, size: 58 }, unit: { x: 48, y: 150, size: 13 },
+    last: { x: 48, y: 174, size: 12, maxW: 330 }, avatars: { x: 62, y: 214, step: 36, r: 13 },
+    cta: { x: 852, y: 238, size: 11, anchor: 'end' },
+  },
+  mobile: {
+    file: 'assets/game/blackhole-mobile.svg', w: 360, h: 280, hole: [258, 96], scale: 0.55, stars: 30,
+    head: { x: 22, y: 34, size: 11 }, digits: { x: 20, y: 104, size: 46 }, unit: { x: 22, y: 128, size: 12 },
+    last: { x: 22, y: 154, size: 11, maxW: 316 }, avatars: { x: 36, y: 198, step: 41, r: 15 },
+    cta: { x: 180, y: 250, size: 10.5, anchor: 'middle' },
+  },
+};
 
 // Ring with a hole (nonzero: the inner circle runs the other way).
 const GLYPH = 'M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18ZM12 8.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7Z';
@@ -75,51 +92,55 @@ const fit = (font, text, size, tracking, maxW) => {
   return t === text ? t : `${t.slice(0, -1)}…`;
 };
 
-// Direction A "Accretion gauge" (picked in the P3 concept sprint): mass and
-// travelers on the left, the hole on the right third like the hero.
-function info({ fonts, c, mass, last, list, avatars }) {
+function info(L, { fonts, c, mass, last, list, avatars }) {
   const path = (font, text, o, fill, extra = {}) => el('path', { d: textPath(font, text, o).d, fill, ...extra });
   let defs = '';
-  let body = path(fonts.mono, COPY.head, { x: 48, y: 50, size: 12, tracking: 0.3 }, c.accent.ion);
-  body += path(fonts.display, String(mass), { x: 46, y: 122, size: 58 }, c.accretion.gold);
-  body += path(fonts.mono, COPY.unit(mass), { x: 48, y: 150, size: 13, tracking: 0.2 }, c.text.onDark);
-  body += path(fonts.mono, fit(fonts.mono, last ? COPY.last(last) : COPY.empty, 12, 0.08, 330), { x: 48, y: 174, size: 12, tracking: 0.08 }, c.text.mutedOnDark);
+  let body = path(fonts.mono, COPY.head, { ...L.head, tracking: 0.3 }, c.accent.ion);
+  body += path(fonts.display, String(mass), L.digits, c.accretion.gold);
+  body += path(fonts.mono, COPY.unit(mass), { ...L.unit, tracking: 0.2 }, c.text.onDark);
+  // A long login drops the date before anything gets cut.
+  const { maxW, ...lastAt } = L.last;
+  let line = last ? COPY.last(last) : COPY.empty;
+  if (last && measure(fonts.mono, line, L.last.size, 0.08) > maxW) line = line.replace(/ · \d{4}-\d{2}-\d{2}$/, '');
+  body += path(fonts.mono, fit(fonts.mono, line, L.last.size, 0.08, maxW), { ...lastAt, tracking: 0.08 }, c.text.mutedOnDark);
+  const av = L.avatars;
   list.forEach((e, i) => {
-    const a = avatar(e, i, 62 + i * 36, 214, 13, { avatars, fonts, c });
+    const a = avatar(e, i, av.x + i * av.step, av.y, av.r, { avatars, fonts, c });
     defs += a.defs;
     body += a.body;
   });
-  body += path(fonts.mono, COPY.cta, { x: 852, y: 238, size: 11, tracking: 0.2, anchor: 'end' }, c.accent.ion, { opacity: 0.8 });
+  body += path(fonts.mono, COPY.cta, { ...L.cta, tracking: 0.2 }, c.accent.ion, { opacity: 0.8 });
   return { defs, body };
 }
 
-export function gamePanel({ tokens, fonts, state, avatars = {} }) {
+export function gamePanel({ tokens, fonts, state, avatars = {}, layout = 'desktop' }) {
+  const Lay = LAYOUTS[layout];
   const g = tokens.game;
   const c = tokens.color;
   const r = rng('game');
   const mass = state.mass;
-  const [cx, cy] = HOLE;
-  const rsh = radius(mass, g);
-  const bh = blackHole(r, look(cx, cy, rsh, growth(mass, g)), { ...c.space, ...c.accretion }, { id: 'g', w: g.w, h: g.h });
+  const [cx, cy] = Lay.hole;
+  const rsh = radius(mass, g) * Lay.scale;
+  const bh = blackHole(r, look(cx, cy, rsh, growth(mass, g)), { ...c.space, ...c.accretion }, { id: 'g', w: Lay.w, h: Lay.h });
   const L = bh.layers;
-  const p = panel('g', g.h, r, tokens, 64);
+  const p = panel('g', Lay.h, r, tokens, Lay.stars, Lay.w);
   const list = travelers(state);
   const last = state.entries[0];
-  const text = info({ fonts, c, mass, last, list, avatars });
+  const text = info(Lay, { fonts, c, mass, last, list, avatars });
 
   const scene = L.streaks + L.bloom + L.diskBack + L.halo + L.particles + infall(cx, cy, rsh, 0.15, c) + L.photon + L.shadow + L.diskFront + (L.flare ?? '');
   const body = p.back(scene) + p.edge + text.body;
   const css = '.spin{transform-box:fill-box;transform-origin:center;animation:spin var(--p,24s) linear infinite}@keyframes spin{to{transform:rotate(1turn)}}' + TWINKLE_CSS;
   const title = `Feed the Black Hole: ${mass} ${mass === 1 ? 'star' : 'stars'} devoured${last ? `, last fed by @${last.login}` : ''}`;
   const desc = list.length ? `A black hole that grows with every star fed through an issue. Last travelers: ${list.map((e) => `@${e.login}`).join(', ')}.` : 'A black hole that grows with every star fed through an issue.';
-  return svgDoc({ id: 'g', w: g.w, h: g.h, title, desc, css, defs: p.defs + bh.defs + text.defs, body });
+  return svgDoc({ id: 'g', w: Lay.w, h: Lay.h, title, desc, css, defs: p.defs + bh.defs + text.defs, body });
 }
 
 export default function render({ tokens, fonts, data }) {
   const game = data.game ?? { state: EMPTY, avatars: {} };
   return {
     files: [
-      { path: 'assets/game/blackhole.svg', svg: gamePanel({ tokens, fonts, state: game.state, avatars: game.avatars }) },
+      ...Object.keys(LAYOUTS).map((layout) => ({ path: LAYOUTS[layout].file, svg: gamePanel({ tokens, fonts, state: game.state, avatars: game.avatars, layout }) })),
       { path: 'assets/ui/btn-feed.svg', svg: button({ channel: 'feed', label: COPY.button, glyph: GLYPH }, { fonts, tokens }) },
     ],
   };

@@ -84,7 +84,8 @@ const BLOCKS = {
       header(section),
       '',
       '<!-- FEED:START -->',
-      `<p align="center">${linked(url, img(`assets/game/blackhole.svg?v=${mass}`, alt, 'width="100%"'))}</p>`,
+      // Narrow screens get the 360 px layout, so the panel's type stays legible.
+      `<p align="center">${linked(url, `<picture>\n  <source media="(max-width: 600px)" srcset="assets/game/blackhole-mobile.svg?v=${mass}">\n  ${img(`assets/game/blackhole.svg?v=${mass}`, alt, 'width="100%"')}\n</picture>`)}</p>`,
       `<p align="center">${linked(url, img('assets/ui/btn-feed.svg', COPY.button, 'height="44"'))}</p>`,
       '<!-- FEED:END -->',
     ].join('\n');

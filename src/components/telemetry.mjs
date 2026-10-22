@@ -39,14 +39,14 @@ export function brackets(w, h, color, inset = 12, len = 16) {
 }
 
 // Glass panel shared by the observatory panels: gradient, stars, 1 px edge.
-export function panel(id, h, r, tokens, stars) {
+export function panel(id, h, r, tokens, stars, w = W) {
   const c = tokens.color;
-  const frame = roundRectPath(0.5, 0.5, W - 1, h - 1, 19.5);
+  const frame = roundRectPath(0.5, 0.5, w - 1, h - 1, 19.5);
   return {
     defs:
       el('clipPath', { id: `${id}-clip` }, el('path', { d: frame })) +
       el('linearGradient', { id: `${id}-bg`, x1: 0, y1: 0, x2: 0, y2: 1 }, el('stop', { offset: 0, 'stop-color': c.space.deep }) + el('stop', { offset: 1, 'stop-color': c.space.void })),
-    back: (extra = '') => el('g', { 'clip-path': `url(#${id}-clip)` }, el('path', { d: frame, fill: `url(#${id}-bg)` }) + starfield(r, { w: W, h, count: stars, color: c.accretion.photon, twinkleShare: tokens.motion.twinkleShare }) + extra),
+    back: (extra = '') => el('g', { 'clip-path': `url(#${id}-clip)` }, el('path', { d: frame, fill: `url(#${id}-bg)` }) + starfield(r, { w, h, count: stars, color: c.accretion.photon, twinkleShare: tokens.motion.twinkleShare }) + extra),
     edge: el('path', { d: frame, fill: 'none', stroke: c.space.line }),
   };
 }
