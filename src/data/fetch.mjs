@@ -1,7 +1,9 @@
 // GitHub (public data only) → data/github.json (SPEC §4).
 //   node src/data/fetch.mjs
 // Auth: GITHUB_TOKEN or GH_TOKEN (CI). Without one, it asks the local `gh` CLI,
-// which keeps the token to itself. On any failure the previous file stays
+// which keeps the token to itself. The owner's own token also counts private
+// contributions, so without GITHUB_TOKEN it writes nothing unless --force is
+// given (CI data stays the source of truth). On any failure the previous file stays
 // untouched and the process exits 1, so the CI run shows red while the build
 // still renders the last good data. Never logs tokens or payloads.
 import { execFileSync } from 'node:child_process';
@@ -179,6 +181,10 @@ export async function collect(login, now = new Date()) {
 async function main() {
   const login = String(parse(readFileSync(join(ROOT, 'profile.yaml'), 'utf8'))?.identity?.github_username ?? '').trim();
   if (!login) throw new Error('profile.yaml: identity.github_username is empty');
+  if (!TOKEN && !process.argv.includes('--force')) {
+    console.log(`fetch: skipped, no GITHUB_TOKEN. The local gh token counts private contributions; ${DATA_FILE} comes from CI (use --force to override).`);
+    return;
+  }
   const data = await collect(login);
   const out = join(ROOT, DATA_FILE);
   mkdirSync(dirname(out), { recursive: true });

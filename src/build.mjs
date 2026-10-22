@@ -1,7 +1,8 @@
 // Build: profile.yaml + design/tokens.json + data/github.json → assets/**/*.svg + README.md.
 //   npm run build                       full build from local data (no network)
 //   npm run build -- --only hero,cards  only these components (README is always rebuilt)
-//   npm run build -- --fetch            refresh data/github.json first (src/data/fetch.mjs)
+//   npm run build -- --fetch            refresh data/github.json first (src/data/fetch.mjs;
+//                                       locally it needs GITHUB_TOKEN or --force)
 // Components are pure; this file does all the I/O, runs SVGO and reports each
 // file against its budget.
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
@@ -77,7 +78,7 @@ function main(args) {
   const names = onlyIdx >= 0 ? args[onlyIdx + 1].split(',').map((s) => s.trim()) : Object.keys(COMPONENTS);
   // --fetch refreshes data/github.json first; a failed fetch still builds from the last good data.
   let fetchFailed = false;
-  if (args.includes('--fetch')) fetchFailed = spawnSync(process.execPath, [join(ROOT, 'src/data/fetch.mjs')], { stdio: 'inherit' }).status !== 0;
+  if (args.includes('--fetch')) fetchFailed = spawnSync(process.execPath, [join(ROOT, 'src/data/fetch.mjs'), ...args.filter((a) => a === '--force')], { stdio: 'inherit' }).status !== 0;
   const ctx = context();
   if (ctx.data.github?.source && ctx.data.github.source !== DATA_FILE) console.log(`! no ${DATA_FILE}: building from ${ctx.data.github.source}`);
   const files = renderComponents(ctx, names);
