@@ -79,6 +79,9 @@ Fill in these headings, in this order:
 - `npm run preview`: README rendered by GitHub's Markdown API (offline fallback: marked) at http://localhost:4173. In the app, `preview_start` with name `preview` (`.claude/launch.json`).
 - `npm test`: dry-run tests for the game rules (`node:test`, `src/**/*.test.mjs`).
 - `node src/game/run.mjs --dry-run --issues <file.json>`: plays sample issues against `data/blackhole.json` and writes nothing. In CI, `feed.yml` runs it without flags, then with `--reply`.
+- `npm run site:data`: profile.yaml + tokens + fonts → `site/src/data/profile.json`, `site/public/fonts/` (Latin subsets) and `site/public/favicon.svg`. Re-run after editing profile.yaml, then rebuild the site.
+- Inside `site/`: `npm run dev` (:5174), `npm run build` (tsc + Vite → `dist/`), `npm run preview` (:4174). In the app, `preview_start` with name `site` or `site-dist`.
+- Inside `site/`: `npm run capture -- assets` re-renders posters, `og.png` and raster icons from the real shader (headless Chrome, no deps); `-- motion` checks moving vs reduced-motion still; `-- shot --query "capture=page#game" --size 390x844` grabs any state.
 - Record new commands here.
 
 ## Conventions

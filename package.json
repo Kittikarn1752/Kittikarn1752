@@ -12,7 +12,8 @@
     "fetch": "node src/data/fetch.mjs",
     "preview": "node src/preview.mjs",
     "check": "node tools/check.mjs",
-    "test": "node --test \"src/**/*.test.mjs\""
+    "test": "node --test \"src/**/*.test.mjs\"",
+    "site:data": "node src/site/export.mjs"
   },
   "devDependencies": {
     "github-markdown-css": "5.9.0",

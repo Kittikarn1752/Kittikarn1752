@@ -3,8 +3,8 @@
 Legend: ⬜ todo · 🟨 in progress · ✅ done.
 At the end of each phase, the AI updates the status table, checks off items, and adds ≤ 5 decision lines.
 
-**Current:** P4 ⬜ (P3 ✅ 2026-10-22 · P2 ✅ 2026-10-21 · P1 ✅ 2026-10-21 · P0 ✅ 2026-10-21)
-**Next action:** start a fresh session with effort xhigh and `/kickoff` P4. Open items: Safari/Firefox, the GitHub mobile app (may ignore `<picture>`) and real reduced-motion not checked; HUD labels ~5 px at 375 px on the hero, C4 and C5–C7 (the game panel's mobile file shows the fix pattern).
+**Current:** P5 ⬜ (P4 ✅ 2026-10-22 · P3 ✅ 2026-10-22 · P2 ✅ 2026-10-21 · P1 ✅ 2026-10-21 · P0 ✅ 2026-10-21)
+**Next action:** start a fresh session with effort high and `/kickoff` P5 (sidebar `blog` = https://kittikarn1752.github.io). Open items carried to P5: Safari/Firefox, the GitHub mobile app, real touch devices and a real screen reader not checked; HUD labels ~5 px at 375 px on the hero, C4 and C5–C7.
 
 | Phase | Goal | Effort | Status |
 |---|---|---|---|
@@ -12,7 +12,7 @@ At the end of each phase, the AI updates the status table, checks off items, and
 | P1 | Visual core + first publish | xhigh (max for the hero if pass 1 scores < 9) | ✅ |
 | P2 | Live data + contribution galaxy | high (galaxy: xhigh) | ✅ |
 | P3 | Feed the Black Hole game | high | ✅ |
-| P4 | Companion WebGL site | xhigh (max for the shader) | ⬜ |
+| P4 | Companion WebGL site | xhigh (max for the shader) | ✅ |
 | P5 | Profile sidebar + final polish | high (final review: max) | ⬜ |
 
 ## P0 · Setup, identity, inspiration
@@ -77,10 +77,10 @@ Done when: the live game works and rejects spam according to the rules.
 - **Skills:** visual-qa, github-ops
 
 Tasks:
-- [ ] Scaffold `site/` as its own git repo. Prototype the shader and show the user a capture. Then add the planet UI, panels, deep links and fallbacks.
-- [ ] Pass Lighthouse and a11y checks. Add the OG image and the Pages deploy workflow.
-- [ ] `/ship site`: create `<user>/<user>.github.io`, enable Pages (source: Actions), push, verify.
-- [ ] Point the README hero, cards and CTA at the live site, then rebuild and `/ship`.
+- [x] Scaffold `site/` as its own git repo. Prototype the shader and show the user a capture. Then add the planet UI, panels, deep links and fallbacks. → Vite 8.3.5 + TS 7.0.2, look A "Classic arch" picked from 3 shader stills; JS 22 KB gzip.
+- [x] Pass Lighthouse and a11y checks. Add the OG image and the Pages deploy workflow. → Lighthouse mobile (local build) Perf 99 · A11y 100 · BP 100 · SEO 100, LCP 1.8 s, TBT 0 ms, with and without GPU.
+- [x] `/ship site`: create `<user>/<user>.github.io`, enable Pages (source: Actions), push, verify. → site commit 12ee748, Pages run 39709877435 green; live at https://kittikarn1752.github.io, all 5 deep links open their panel, no broken images or console errors.
+- [x] Point the README hero, cards and CTA at the live site, then rebuild and `/ship`. → `SITE_LIVE = true`; hero → site, web/ai/ios cards → `#web #ai #ios` (game/app keep their own links); C11 CTA `assets/ui/cta.svg` + `cta-mobile.svg` (≤ 600 px) after the FEED markers; Website button with a globe glyph (contact header now "5 CHANNELS").
 
 Done when: the site is live, it meets its targets, and the README card deep links work.
 
@@ -97,6 +97,11 @@ Tasks:
 Done when: profile, site and sidebar are complete, and every rubric category scores ≥ 9.
 
 ## Decision log (newest first, one line each)
+- 2026-10-22 · P4: site shipped as its own public repo; Pages was enabled (build_type workflow) before the first push so the first run deployed. Re-run `npm run site:data` + `npm run capture -- assets` in `site/` whenever profile.yaml or the look changes.
+- 2026-10-22 · P4: photons are integrated as x'' = -1.5 h² x / r⁵ (velocity Verlet, step ∝ r) with an analytic weak-field tail at escape; checked against theory: shadow edge b = 2.598 Rs, deflection at b = 20 is 6.17° (6.15°).
+- 2026-10-22 · P4: the static page (head, hero, chips, footer, robots, sitemap) is rendered at build time from `site/src/data/profile.json`; fonts are opentype.js subsets (~16 KB each) with pinned `head` dates so `npm run site:data` is byte-stable.
+- 2026-10-22 · P4: posters, OG and icons are rendered from the real shader by `site/tools/capture.mjs` (headless Chrome over CDP, no deps). The poster is the LCP and the fallback; the shader starts after load on idle.
+- 2026-10-22 · P4: software GL (SwiftShader/llvmpipe) gets the poster instead of the live trace, and the trace loop uses uniform bounds (D3D unrolled a 512-step loop); both took TBT from 470 ms to 0.
 - 2026-10-22 · P3 closed: live round trip 15 s; `?v=<mass>` survives GitHub's raw URL rewrite, so the new hole shows on the next page load.
 - 2026-10-22 · P3: direction A "Accretion gauge" picked; the hole reuses the hero's `blackHole()` (now exported, hero.svg byte-identical), r = 18 + 9·log10(1 + mass), capped at 46. Narrow screens get a 360 px file through `<picture media="(max-width: 600px)">` (GitHub's sanitizer keeps it).
 - 2026-10-22 · P3: `feed.yml` uses `concurrency.queue: max` (default keeps only 1 pending run) and every run sweeps all open `feed|` issues oldest first; time comes from the issue's created_at, so re-runs agree. A rejected push replays on the latest main (×3).

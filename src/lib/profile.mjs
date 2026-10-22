@@ -3,8 +3,9 @@
 import { readFileSync } from 'node:fs';
 import { parse } from 'yaml';
 
-// The companion site ships in P4. Until then nothing links to it, so there are no 404s.
-export const SITE_LIVE = false;
+// The companion site is live (P4, 2026-10-22): the hero, cards, website button and
+// the C11 CTA link to it. Set false again if the site ever goes down.
+export const SITE_LIVE = true;
 
 const SKILL_IDS = ['web', 'game', 'app', 'ai', 'ios'];
 const TRACKING_PARAM = /^(?:fbclid|gclid|igshid|mibextid|utm_[a-z]+)$/i;

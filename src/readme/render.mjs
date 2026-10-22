@@ -7,6 +7,7 @@ import { pct, topLanguages } from '../components/languages.mjs';
 import { galaxyCaption } from '../components/galaxy.mjs';
 import { missions } from '../components/missions.mjs';
 import { COPY } from '../components/game.mjs';
+import { COPY as CTA } from '../components/cta.mjs';
 import { feedUrl } from '../game/feed.mjs';
 
 // User text goes into HTML blocks, so escape it (bio "-->" stays visible text).
@@ -88,6 +89,10 @@ const BLOCKS = {
       `<p align="center">${linked(url, `<picture>\n  <source media="(max-width: 600px)" srcset="assets/game/blackhole-mobile.svg?v=${mass}">\n  ${img(`assets/game/blackhole.svg?v=${mass}`, alt, 'width="100%"')}\n</picture>`)}</p>`,
       `<p align="center">${linked(url, img('assets/ui/btn-feed.svg', COPY.button, 'height="44"'))}</p>`,
       '<!-- FEED:END -->',
+      // C11 site CTA, outside the FEED markers so the game workflow never touches it.
+      ...(profile.site.live
+        ? [`<p align="center">${linked(profile.site.url, `<picture>\n  <source media="(max-width: 600px)" srcset="assets/ui/cta-mobile.svg">\n  ${img('assets/ui/cta.svg', CTA.alt, 'width="100%"')}\n</picture>`)}</p>`]
+        : []),
     ].join('\n');
   },
 

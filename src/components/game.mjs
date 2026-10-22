@@ -43,7 +43,7 @@ const LAYOUTS = {
 // Ring with a hole (nonzero: the inner circle runs the other way).
 const GLYPH = 'M12 3a9 9 0 1 1 0 18a9 9 0 1 1 0-18ZM12 8.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 1 0 0-7Z';
 
-const look = (cx, cy, rsh, g) => ({
+export const look = (cx, cy, rsh, g) => ({
   hole: { cx, cy, rsh },
   tilt: 0.15,
   disk: { inner: 1.18, outer: 3.9, rings: 9 },

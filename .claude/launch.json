@@ -6,6 +6,18 @@
       "runtimeExecutable": "node",
       "runtimeArgs": ["src/preview.mjs"],
       "port": 4173
+    },
+    {
+      "name": "site",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["site/node_modules/vite/bin/vite.js", "site"],
+      "port": 5174
+    },
+    {
+      "name": "site-dist",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["site/node_modules/vite/bin/vite.js", "preview", "site"],
+      "port": 4174
     }
   ]
 }

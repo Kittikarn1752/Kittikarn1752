@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/hero/hero.svg" width="100%" alt="Kittikarn — animated black hole with a glowing accretion disk"></p>
+<p align="center"><a href="https://kittikarn1752.github.io"><img src="assets/hero/hero.svg" width="100%" alt="Kittikarn — animated black hole with a glowing accretion disk"></a></p>
 
 <img src="assets/intro/orbit.svg" align="right" width="34%" alt="Porthole: 5 skill planets (Web Dev, Game Dev, App Dev, AI Vibe Code, iOS Dev) orbiting a K star">
 
@@ -19,13 +19,13 @@ Student learning to code by building games and websites, now digging into AI and
 </picture>
 
 <p align="center">
-  <img src="assets/cards/web.svg" width="270" alt="Web Dev — Web apps in TypeScript + React — TypeScript, React, HTML">
+  <a href="https://kittikarn1752.github.io/#web"><img src="assets/cards/web.svg" width="270" alt="Web Dev — Web apps in TypeScript + React — TypeScript, React, HTML"></a>
   <a href="https://kittikarn.itch.io/weavebound"><img src="assets/cards/game.svg" width="270" alt="Game Dev — Unity games with Blender-built worlds — Unity, Blender"></a>
   <a href="https://drive.google.com/drive/folders/1tIeXd9xWZULpaP_t0foy6rng-J5VvT90"><img src="assets/cards/app.svg" width="270" alt="App Dev — Apps and tools in Python and C — Python, C"></a>
 </p>
 <p align="center">
-  <img src="assets/cards/ai.svg" width="270" alt="AI Vibe Code — Pair-programming with AI agents — CLAUDE, ChatGPT, Antigravity">
-  <img src="assets/cards/ios.svg" width="270" alt="iOS Dev — Native iOS apps in SwiftUI — Swift, SwiftUI">
+  <a href="https://kittikarn1752.github.io/#ai"><img src="assets/cards/ai.svg" width="270" alt="AI Vibe Code — Pair-programming with AI agents — CLAUDE, ChatGPT, Antigravity"></a>
+  <a href="https://kittikarn1752.github.io/#ios"><img src="assets/cards/ios.svg" width="270" alt="iOS Dev — Native iOS apps in SwiftUI — Swift, SwiftUI"></a>
 </p>
 <p align="center"><img src="assets/stack/stack.svg" width="100%" alt="Tech constellation — Web Dev: TypeScript, React, HTML; Game Dev: Unity, Blender; App Dev: Python, C; AI Vibe Code: CLAUDE, ChatGPT, Antigravity; iOS Dev: Swift, SwiftUI"></p>
 
@@ -52,6 +52,10 @@ Student learning to code by building games and websites, now digging into AI and
 </picture></a></p>
 <p align="center"><a href="https://github.com/Kittikarn1752/Kittikarn1752/issues/new?title=feed%7Cstar&amp;body=Press%20**Submit%20new%20issue**%20to%20throw%20a%20star%20into%20the%20black%20hole.%20A%20bot%20adds%20it%20within%20a%20minute%20or%20two%2C%20replies%20here%20and%20closes%20the%20issue.%20Your%20%40handle%20and%20avatar%20will%20appear%20on%20this%20profile.%20One%20star%20per%20person%20per%20hour."><img src="assets/ui/btn-feed.svg" height="44" alt="Feed the black hole"></a></p>
 <!-- FEED:END -->
+<p align="center"><a href="https://kittikarn1752.github.io"><picture>
+  <source media="(max-width: 600px)" srcset="assets/ui/cta-mobile.svg">
+  <img src="assets/ui/cta.svg" width="100%" alt="Enter the Event Horizon: the interactive WebGL companion site">
+</picture></a></p>
 
 <details>
 <summary><b>Ship's log</b> · recent transmissions</summary>
@@ -71,6 +75,7 @@ Student learning to code by building games and websites, now digging into AI and
 
 <p align="center">
   <a href="mailto:punyapatamorn@gmail.com"><img src="assets/ui/btn-email.svg" height="44" alt="Email"></a>
+  <a href="https://kittikarn1752.github.io"><img src="assets/ui/btn-website.svg" height="44" alt="Website"></a>
   <a href="https://www.instagram.com/ktnx.exe"><img src="assets/ui/btn-instagram.svg" height="44" alt="Instagram"></a>
   <a href="https://www.facebook.com/KittikarnAmonhirunwong/"><img src="assets/ui/btn-facebook.svg" height="44" alt="Facebook"></a>
   <a href="https://www.youtube.com/@NETDEEDEE"><img src="assets/ui/btn-youtube.svg" height="44" alt="YouTube"></a>
