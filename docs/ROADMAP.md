@@ -3,8 +3,8 @@
 Legend: ⬜ todo · 🟨 in progress · ✅ done.
 At the end of each phase, the AI updates the status table, checks off items, and adds ≤ 5 decision lines.
 
-**Current:** P5 🟨 (QA passed and shipped 2026-10-22; sidebar pending · P4 ✅ 2026-10-22 · P3 ✅ 2026-10-22 · P2 ✅ 2026-10-21 · P1 ✅ 2026-10-21 · P0 ✅ 2026-10-21)
-**Next action:** the user runs `/ship sidebar` (values approved, in `profile.yaml → identity.bio_short / status`), then the manual steps: pins, social previews from `design/social/`, Watch → Custom → Issues off. Then mark P5 ✅. Still unverified: Safari/Firefox (incl. the width media queries inside the header/footer/porthole SVGs), the GitHub mobile app, real touch devices, a real screen reader.
+**Current:** all phases ✅ (P5 ✅ 2026-10-22 · P4 ✅ 2026-10-22 · P3 ✅ 2026-10-22 · P2 ✅ 2026-10-21 · P1 ✅ 2026-10-21 · P0 ✅ 2026-10-21)
+**Next action:** none required: stats refresh daily and the game runs on issues. The user's manual steps: pins, social previews from `design/social/`, Watch → Custom → Issues off. Optional: one-line descriptions for `Mysteries-Card-shop` / `My_web_test_ktn` (better pins, more C9 missions). After a profile.yaml edit: `npm run build`, `visual-qa`, `/ship` (plus `npm run site:data` for the site). Still unverified: Safari/Firefox (incl. the width media queries inside the header/footer/porthole SVGs), the GitHub mobile app, real touch devices, a real screen reader.
 
 | Phase | Goal | Effort | Status |
 |---|---|---|---|
@@ -13,7 +13,7 @@ At the end of each phase, the AI updates the status table, checks off items, and
 | P2 | Live data + contribution galaxy | high (galaxy: xhigh) | ✅ |
 | P3 | Feed the Black Hole game | high | ✅ |
 | P4 | Companion WebGL site | xhigh (max for the shader) | ✅ |
-| P5 | Profile sidebar + final polish | high (final review: max) | 🟨 |
+| P5 | Profile sidebar + final polish | high (final review: max) | ✅ |
 
 ## P0 · Setup, identity, inspiration
 - **SPEC:** §0–§2
@@ -89,7 +89,7 @@ Done when: the site is live, it meets its targets, and the README card deep link
 - **Skills:** github-ops, visual-qa
 
 Tasks:
-- [ ] Propose sidebar values as a diff against the current ones. After approval, the user runs `/ship sidebar`. → approved: bio (c) 142 chars, status (a) :milky_way: "Building things with gravity.", blog = site, location; `/ship sidebar` pending.
+- [x] Propose sidebar values as a diff against the current ones. After approval, the user runs `/ship sidebar`. → approved: bio (c) 142 chars, status (a) :milky_way: "Building things with gravity.", blog = site, location; applied by `/ship sidebar` 2026-10-22 and read back identical (API and live page).
 - [x] Avatar: keep the current one, or create a monogram (PNG ≥ 500×500) for the user to upload. Give the user exact steps for pins and social previews. → kept (`avatar.mode: keep`); 1280×640 previews rendered from the shader into `design/social/`; steps given in the P5 ship report.
 - [x] Optional A/B: compare a pre-rendered WebGL hero loop (animated WebP; needs ffmpeg) with the SVG hero. The user decides. → skipped by the user (no ffmpeg; a decent animated WebP would break `heroKB`).
 - [x] Final QA at max effort. Fix what it finds, then `/ship`. → round 3: mean 9.1, every category ≥ 9 (Mobile 7 → 9); desktop 490 KB, phone 467 KB of 3000 KB.
@@ -100,7 +100,7 @@ Done when: profile, site and sidebar are complete, and every rubric category sco
 - 2026-10-22 · P5: phone layouts for the hero (concept B "cinematic crop"), C4 and C5–C7 ship as `-mobile.svg` through `<picture media="(max-width: 600px)">`; the desktop files stayed byte-identical through the refactor.
 - 2026-10-22 · P5: headers, footer and porthole adapt inside the SVG with `@media (max-width: …)`, which follows the rendered `<img>` width: headers lead ×1.8 + plain rule ≤ 600 px, footer label ×2.2, porthole labels hidden ≤ 200 px. Verified in Chromium only.
 - 2026-10-22 · P5 QA fixes: telemetry's two rows are balanced (6 → 3 + 3, panel 228 tall), the languages static planets are spread by the golden ratio (they lined up on one ray), and muted sub-labels went from 2.9–3.9:1 to ≥ 4.67:1 (opacity .85).
-- 2026-10-22 · P5: the 200-char README bio was cut at 160 in the sidebar, so the sidebar gets its own `identity.bio_short` (DRAFT (c), approved) and `identity.status`; A/B WebGL hero skipped; avatar kept.
+- 2026-10-22 · P5: the 200-char README bio was cut at 160 in the sidebar, so the sidebar gets its own `identity.bio_short` (DRAFT (c), approved) and `identity.status`; applied as a JSON body (`gh api -X PATCH user --input`) so `·` and apostrophes skip the shell. A/B WebGL hero skipped; avatar kept.
 - 2026-10-22 · P5: the first scheduled stats run fired 5 h late (08:39 UTC for the 03:17 cron), which is normal on GitHub; C9 Missions now lists the site repo.
 - 2026-10-22 · P4: site shipped as its own public repo; Pages was enabled (build_type workflow) before the first push so the first run deployed. Re-run `npm run site:data` + `npm run capture -- assets` in `site/` whenever profile.yaml or the look changes.
 - 2026-10-22 · P4: photons are integrated as x'' = -1.5 h² x / r⁵ (velocity Verlet, step ∝ r) with an analytic weak-field tail at escape; checked against theory: shadow edge b = 2.598 Rs, deflection at b = 20 is 6.17° (6.15°).
