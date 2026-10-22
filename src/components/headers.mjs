@@ -7,6 +7,7 @@ import { missions } from './missions.mjs';
 
 const W = 880;
 const H = 64;
+const NARROW = 1.8;
 
 // The README sections that have a header, in display order. Live sections
 // appear only when data/github.json exists.
@@ -36,19 +37,31 @@ function header(section, theme, { fonts, tokens }) {
   const x1 = 36 + title.width + 24;
   const x2 = W - meta.width - 20;
   const y = base - 8;
+  // Rendered ≤ 600 px wide (phones), the index and title scale up NARROW× and
+  // the meta and comet give way to a plain rule, so nothing renders at ~4 px.
+  const nx = (36 + title.width) * NARROW + 24;
+  const ny = base - 8 * NARROW;
 
+  const fade = (gid, from, to) => el('linearGradient', { id: gid, gradientUnits: 'userSpaceOnUse', x1: n(from), x2: n(to), y1: 0, y2: 0 }, el('stop', { offset: 0, 'stop-color': accent, 'stop-opacity': 0.7 }) + el('stop', { offset: 1, 'stop-color': accent, 'stop-opacity': 0.08 }));
   const defs =
-    el('linearGradient', { id: `${id}-rule`, gradientUnits: 'userSpaceOnUse', x1, x2, y1: 0, y2: 0 }, el('stop', { offset: 0, 'stop-color': accent, 'stop-opacity': 0.7 }) + el('stop', { offset: 1, 'stop-color': accent, 'stop-opacity': 0.08 })) +
+    fade(`${id}-rule`, x1, x2) +
+    fade(`${id}-ruleN`, nx, W) +
     el('radialGradient', { id: `${id}-dot` }, el('stop', { offset: 0, 'stop-color': accent }) + el('stop', { offset: 1, 'stop-color': accent, 'stop-opacity': 0 }));
   const body =
-    el('path', { d: idx.d, fill: accent }) +
-    el('path', { d: title.d, fill: ink }) +
-    el('path', { d: `M${n(x1)} ${n(y - 3)}l3 3l-3 3l-3 -3Z`, fill: accent }) +
-    el('rect', { x: x1 + 8, y: y - 0.5, width: x2 - x1 - 8, height: 1, fill: `url(#${id}-rule)` }) +
-    el('g', { transform: `translate(${n(x1 + 8)} ${n(y)})` }, el('ellipse', { class: 'glide', rx: 14, ry: 2, fill: `url(#${id}-dot)` })) +
-    el('path', { d: meta.d, fill: muted });
+    el('g', { class: 'lead' }, el('path', { d: idx.d, fill: accent }) + el('path', { d: title.d, fill: ink })) +
+    el(
+      'g',
+      { class: 'aux' },
+      el('path', { d: `M${n(x1)} ${n(y - 3)}l3 3l-3 3l-3 -3Z`, fill: accent }) +
+        el('rect', { x: x1 + 8, y: y - 0.5, width: x2 - x1 - 8, height: 1, fill: `url(#${id}-rule)` }) +
+        el('g', { transform: `translate(${n(x1 + 8)} ${n(y)})` }, el('ellipse', { class: 'glide', rx: 14, ry: 2, fill: `url(#${id}-dot)` })) +
+        el('path', { d: meta.d, fill: muted }),
+    ) +
+    el('g', { class: 'narrow' }, el('path', { d: `M${n(nx)} ${n(ny - 6)}l6 6l-6 6l-6 -6Z`, fill: accent }) + el('rect', { x: n(nx + 14), y: n(ny - 1.5), width: n(W - nx - 14), height: 3, fill: `url(#${id}-ruleN)` }));
   const travel = x2 - x1 - 8;
-  const css = `.glide{opacity:0;animation:glide 8s cubic-bezier(.65,0,.35,1) infinite}@keyframes glide{0%{transform:translateX(0);opacity:0}6%{opacity:1}40%{transform:translateX(${n(travel)}px);opacity:0}100%{transform:translateX(${n(travel)}px);opacity:0}}`;
+  const css =
+    `.glide{opacity:0;animation:glide 8s cubic-bezier(.65,0,.35,1) infinite}@keyframes glide{0%{transform:translateX(0);opacity:0}6%{opacity:1}40%{transform:translateX(${n(travel)}px);opacity:0}100%{transform:translateX(${n(travel)}px);opacity:0}}` +
+    `.narrow{display:none}@media (max-width:600px){.aux{display:none}.narrow{display:inline}.lead{transform:scale(${NARROW});transform-origin:0 ${base}px}}`;
   return svgDoc({ id, w: W, h: H, title: section.title, css, defs, body });
 }
 

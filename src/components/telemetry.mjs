@@ -8,7 +8,8 @@ import { textPath, capHeight } from '../lib/text.mjs';
 
 const W = 880;
 const H = 200;
-const RADAR = { x: 112, y: 106, r: 64 };
+const H2 = 228;
+const DESK_RADAR = { x: 112, y: 106, r: 64 };
 const X0 = 222;
 const X1 = 852;
 
@@ -51,17 +52,36 @@ export function panel(id, h, r, tokens, stars, w = W) {
   };
 }
 
-export default function render({ tokens, fonts, data }) {
+// Phone layout (≤ 600 px, through <picture>): header and stamp stacked on the
+// left, a smaller radar on the right, metrics in a 2-column grid below.
+const PW = 360;
+const PRADAR = { x: 292, y: 66, r: 40 };
+const PROW = { y: 156, step: 74 };
+
+export default function render(ctx) {
+  if (!ctx.data.github) return { files: [] };
+  return {
+    files: [
+      { path: 'assets/stats/telemetry.svg', svg: telemetrySvg(false, ctx) },
+      { path: 'assets/stats/telemetry-mobile.svg', svg: telemetrySvg(true, ctx) },
+    ],
+  };
+}
+
+function telemetrySvg(phone, { tokens, fonts, data }) {
   const gh = data.github;
-  if (!gh) return { files: [] };
   const c = tokens.color;
-  const r = rng('telemetry');
+  const r = rng(phone ? 'telemetry-mobile' : 'telemetry');
   const list = metrics(gh);
-  const p = panel('t', H, r, tokens, 70);
+  const twoRows = list.length > 5;
+  const w = phone ? PW : W;
+  // Two desktop rows get a taller panel, so row 2's digits clear row 1's labels.
+  const h = phone ? PROW.y + (Math.ceil(list.length / 2) - 1) * PROW.step + 64 : twoRows ? H2 : H;
+  const RADAR = phone ? PRADAR : { ...DESK_RADAR, y: h / 2 + 6 };
+  const p = panel('t', h, r, tokens, phone ? 52 : 70, w);
 
   // Odometer glyphs 0–9, defined once and stacked with <use>.
-  const twoRows = list.length > 5;
-  const size = twoRows ? 28 : 38;
+  const size = phone ? 30 : twoRows ? 28 : 38;
   const step = Math.round(size * 1.3);
   const glyphs = [...'0123456789'].map((d) => textPath(fonts.display, d, { x: 0, y: 0, size }));
   const slot = Math.max(...glyphs.map((g) => g.width)) + 2;
@@ -79,29 +99,34 @@ export default function render({ tokens, fonts, data }) {
   const count = Math.min(gh.user.publicRepos, 6);
   for (let i = 0; i < count; i++) {
     const a = ((i + r.range(0.15, 0.85)) / count) * 360;
-    const rad = r.range(16, RADAR.r - 8);
+    const rad = phone ? r.range(10, RADAR.r - 6) : r.range(16, RADAR.r - 8);
     const hit = (a / 360) * 4;
     blips += el('circle', { class: 'blip', cx: rad * Math.cos((a * Math.PI) / 180), cy: rad * Math.sin((a * Math.PI) / 180), r: 2, fill: i ? c.accent.ion : c.accretion.gold, style: `animation-delay:${n(hit - 4)}s` });
   }
   const radar = el(
     'g',
     { transform: `translate(${RADAR.x} ${RADAR.y})` },
-    [RADAR.r, 44, 24].map((rr) => el('circle', { r: rr, fill: 'none', stroke: c.space.line })).join('') +
+    (phone ? [RADAR.r, 27, 14] : [RADAR.r, 44, 24]).map((rr) => el('circle', { r: rr, fill: 'none', stroke: c.space.line })).join('') +
       el('path', { d: `M${-RADAR.r - 6} 0H${RADAR.r + 6}M0 ${-RADAR.r - 6}V${RADAR.r + 6}`, stroke: c.space.line }) +
       el('g', { class: 'radar' }, el('path', { d: `M0 0L${RADAR.r} 0A${RADAR.r} ${RADAR.r} 0 0 0 ${n(RADAR.r * Math.SQRT1_2)} ${n(-RADAR.r * Math.SQRT1_2)}Z`, fill: 'url(#t-sweep)' })) +
       blips +
       el('circle', { r: 2.5, fill: c.accent.ion }),
   );
 
-  // Cells: one row up to five metrics, otherwise two rows.
-  const rows = twoRows ? [list.slice(0, 5), list.slice(5)] : [list];
-  const base = twoRows ? [96, 156] : [118];
+  // Cells: one row up to five metrics, otherwise two balanced rows (6 → 3 + 3,
+  // never 5 + 1); pairs on a phone.
+  const half = Math.ceil(list.length / 2);
+  const rows = [];
+  if (phone) for (let i = 0; i < list.length; i += 2) rows.push(list.slice(i, i + 2));
+  else rows.push(...(twoRows ? [list.slice(0, half), list.slice(half)] : [list]));
+  const base = phone ? rows.map((_, ri) => PROW.y + ri * PROW.step) : twoRows ? [96, 168] : [118];
   let cells = '';
   let k = 0;
   rows.forEach((row, ri) => {
-    const cw = (X1 - X0) / (twoRows ? 5 : row.length);
+    const [x0, x1] = phone ? [24, PW - 24] : [X0, X1];
+    const cw = (x1 - x0) / (phone ? 2 : twoRows ? half : row.length);
     row.forEach((m, i) => {
-      const x = X0 + i * cw;
+      const x = x0 + i * cw;
       const y = base[ri];
       const ink = m.hot ? c.accretion.gold : c.text.onDark;
       cells += el('path', { d: `M${n(x)} ${y - cap - 6}V${y + (m.sub ? 36 : 22)}`, stroke: c.space.line });
@@ -113,14 +138,16 @@ export default function render({ tokens, fonts, data }) {
         cells += el('g', { transform: `translate(${n(x + 18 + j * slot)} ${y})`, 'clip-path': 'url(#t-win)' }, el('g', { class: 'roll', fill: ink, style: `transform:translateY(${-Number(d) * step}px);animation-delay:${n(delay)}s` }, stack));
       });
       cells += el('path', { d: textPath(fonts.mono, m.label, { x: x + 18, y: y + 20, size: 12.5, tracking: 0.04 }).d, fill: c.text.mutedOnDark });
-      if (m.sub) cells += el('path', { d: textPath(fonts.mono, m.sub, { x: x + 18, y: y + 34, size: 10, tracking: 0.1 }).d, fill: c.text.mutedOnDark, opacity: 0.6 });
+      if (m.sub) cells += el('path', { d: textPath(fonts.mono, m.sub, { x: x + 18, y: y + 34, size: 10, tracking: 0.1 }).d, fill: c.text.mutedOnDark, opacity: 0.85 });
       k++;
     });
   });
 
-  const head = textPath(fonts.mono, 'OBSERVATORY', { x: X0, y: 44, size: 11, tracking: 0.3 });
-  const stamp = textPath(fonts.mono, `SYNCED ${syncedStamp(gh)}`, { x: W - 28, y: 44, size: 10.5, tracking: 0.15, anchor: 'end' });
-  const body = p.back() + p.edge + brackets(W, H, c.accent.ion) + radar + el('path', { d: head.d, fill: c.accent.ion }) + el('path', { d: stamp.d, fill: c.text.mutedOnDark }) + cells;
+  const head = textPath(fonts.mono, 'OBSERVATORY', { x: phone ? 24 : X0, y: phone ? 40 : 44, size: 11, tracking: 0.3 });
+  const stamp = phone
+    ? textPath(fonts.mono, `SYNCED ${syncedStamp(gh)}`, { x: 24, y: 62, size: 10, tracking: 0.08 })
+    : textPath(fonts.mono, `SYNCED ${syncedStamp(gh)}`, { x: W - 28, y: 44, size: 10.5, tracking: 0.15, anchor: 'end' });
+  const body = p.back() + p.edge + brackets(w, h, c.accent.ion) + radar + el('path', { d: head.d, fill: c.accent.ion }) + el('path', { d: stamp.d, fill: c.text.mutedOnDark }) + cells;
 
   // Base styles are the final state, so a still frame shows the right numbers.
   const css =
@@ -129,5 +156,5 @@ export default function render({ tokens, fonts, data }) {
     '.radar{transform-origin:0 0;animation:spin 4s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}' +
     '.blip{opacity:.9;animation:blip 4s linear infinite}@keyframes blip{0%{opacity:1}60%,100%{opacity:.2}}';
   const title = `Observatory: ${list.map((m) => `${m.v} ${m.alt}`).join(', ')}. Synced ${syncedStamp(gh)}.`;
-  return { files: [{ path: 'assets/stats/telemetry.svg', svg: svgDoc({ id: 't', w: W, h: H, title, css, defs, body }) }] };
+  return svgDoc({ id: 't', w, h, title, css, defs, body });
 }

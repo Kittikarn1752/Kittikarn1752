@@ -1,4 +1,7 @@
-<p align="center"><a href="https://kittikarn1752.github.io"><img src="assets/hero/hero.svg" width="100%" alt="Kittikarn — animated black hole with a glowing accretion disk"></a></p>
+<p align="center"><a href="https://kittikarn1752.github.io"><picture>
+  <source media="(max-width: 600px)" srcset="assets/hero/hero-mobile.svg">
+  <img src="assets/hero/hero.svg" width="100%" alt="Kittikarn — animated black hole with a glowing accretion disk">
+</picture></a></p>
 
 <img src="assets/intro/orbit.svg" align="right" width="34%" alt="Porthole: 5 skill planets (Web Dev, Game Dev, App Dev, AI Vibe Code, iOS Dev) orbiting a K star">
 
@@ -27,7 +30,10 @@ Student learning to code by building games and websites, now digging into AI and
   <a href="https://kittikarn1752.github.io/#ai"><img src="assets/cards/ai.svg" width="270" alt="AI Vibe Code — Pair-programming with AI agents — CLAUDE, ChatGPT, Antigravity"></a>
   <a href="https://kittikarn1752.github.io/#ios"><img src="assets/cards/ios.svg" width="270" alt="iOS Dev — Native iOS apps in SwiftUI — Swift, SwiftUI"></a>
 </p>
-<p align="center"><img src="assets/stack/stack.svg" width="100%" alt="Tech constellation — Web Dev: TypeScript, React, HTML; Game Dev: Unity, Blender; App Dev: Python, C; AI Vibe Code: CLAUDE, ChatGPT, Antigravity; iOS Dev: Swift, SwiftUI"></p>
+<p align="center"><picture>
+  <source media="(max-width: 600px)" srcset="assets/stack/stack-mobile.svg">
+  <img src="assets/stack/stack.svg" width="100%" alt="Tech constellation — Web Dev: TypeScript, React, HTML; Game Dev: Unity, Blender; App Dev: Python, C; AI Vibe Code: CLAUDE, ChatGPT, Antigravity; iOS Dev: Swift, SwiftUI">
+</picture></p>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/ui/h-observatory-dark.svg">
@@ -35,9 +41,18 @@ Student learning to code by building games and websites, now digging into AI and
   <img src="assets/ui/h-observatory-dark.svg" width="100%" alt="Observatory">
 </picture>
 
-<p align="center"><img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 44 contributions in the last year, 36 commits in the last year, 4 issues, 4 public repos, 2 days current streak, 2 days longest streak. Synced 2026-10-22 08:39 UTC."></p>
-<p align="center"><img src="assets/stats/languages.svg" width="100%" alt="Language orbits: JavaScript 65.5%, TypeScript 17.6%, CSS 7.6%, GLSL 5.4%, HTML 3.8%"></p>
-<p align="center"><img src="assets/galaxy/galaxy.svg" width="100%" alt="Contribution galaxy: 44 contributions in the last year · longest streak 2 days"></p>
+<p align="center"><picture>
+  <source media="(max-width: 600px)" srcset="assets/stats/telemetry-mobile.svg">
+  <img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 44 contributions in the last year, 36 commits in the last year, 4 issues, 4 public repos, 2 days current streak, 2 days longest streak. Synced 2026-10-22 08:39 UTC.">
+</picture></p>
+<p align="center"><picture>
+  <source media="(max-width: 600px)" srcset="assets/stats/languages-mobile.svg">
+  <img src="assets/stats/languages.svg" width="100%" alt="Language orbits: JavaScript 65.5%, TypeScript 17.6%, CSS 7.6%, GLSL 5.4%, HTML 3.8%">
+</picture></p>
+<p align="center"><picture>
+  <source media="(max-width: 600px)" srcset="assets/galaxy/galaxy-mobile.svg">
+  <img src="assets/galaxy/galaxy.svg" width="100%" alt="Contribution galaxy: 44 contributions in the last year · longest streak 2 days">
+</picture></p>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/ui/h-interact-dark.svg">

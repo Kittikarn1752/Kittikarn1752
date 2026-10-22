@@ -82,6 +82,7 @@ Fill in these headings, in this order:
 - `npm run site:data`: profile.yaml + tokens + fonts → `site/src/data/profile.json`, `site/public/fonts/` (Latin subsets) and `site/public/favicon.svg`. Re-run after editing profile.yaml, then rebuild the site.
 - Inside `site/`: `npm run dev` (:5174), `npm run build` (tsc + Vite → `dist/`), `npm run preview` (:4174). In the app, `preview_start` with name `site` or `site-dist`.
 - Inside `site/`: `npm run capture -- assets` re-renders posters, `og.png` and raster icons from the real shader (headless Chrome, no deps); `-- motion` checks moving vs reduced-motion still; `-- shot --query "capture=page#game" --size 390x844` grabs any state.
+- Inside `site/`: `npm run capture -- shot --query "capture=og" --size 1280x640 --out ../design/social --name profile-preview` (and `capture=scene` → `site-preview`) renders the repo social-preview PNGs; the user uploads them by hand.
 - Record new commands here.
 
 ## Conventions

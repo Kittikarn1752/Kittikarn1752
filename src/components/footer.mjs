@@ -33,11 +33,19 @@ export default function render({ tokens, fonts, data }) {
     el('linearGradient', { id: 'u-fbg', x1: 0, y1: 0, x2: 0, y2: 1 }, el('stop', { offset: 0, 'stop-color': c.space.deep }) + el('stop', { offset: 1, 'stop-color': c.space.void })) +
     el('linearGradient', { id: 'u-fplate', x1: 0, y1: 0, x2: 1, y2: 0 }, el('stop', { offset: 0, 'stop-color': c.space.void, 'stop-opacity': 0 }) + el('stop', { offset: 0.5, 'stop-color': c.space.void, 'stop-opacity': 0.92 }) + el('stop', { offset: 1, 'stop-color': c.space.void, 'stop-opacity': 0 }));
   const plateW = text.width + 160;
+  // Rendered ≤ 600 px wide (phones), the plate and label scale up 2.2× so the
+  // label stays ~8 px instead of ~4 px.
   const body =
-    el('g', { 'clip-path': 'url(#u-fclip)' }, el('path', { d: frame, fill: 'url(#u-fbg)' }) + el('g', { class: 'drift' }, strip) + el('rect', { x: (W - plateW) / 2, y: H / 2 - 14, width: plateW, height: 26, fill: 'url(#u-fplate)' })) +
+    el('g', { 'clip-path': 'url(#u-fclip)' }, el('path', { d: frame, fill: 'url(#u-fbg)' }) + el('g', { class: 'drift' }, strip) + el('rect', { class: 'ft', x: (W - plateW) / 2, y: H / 2 - 14, width: plateW, height: 26, fill: 'url(#u-fplate)' })) +
     el('path', { d: frame, fill: 'none', stroke: c.space.line }) +
-    el('path', { d: text.d, fill: c.text.onDark, opacity: 0.85 }) +
-    el('path', { d: `M${n(W / 2 - text.width / 2 - pad - 14)} ${H / 2}h14M${n(W / 2 + text.width / 2 + pad)} ${H / 2}h14`, stroke: c.accent.ion, opacity: 0.6 });
-  const css = `.drift{animation:drift 24s linear infinite}@keyframes drift{to{transform:translateX(-${TILE}px)}}`;
+    el(
+      'g',
+      { class: 'ft' },
+      el('path', { d: text.d, fill: c.text.onDark, opacity: 0.85 }) +
+        el('path', { d: `M${n(W / 2 - text.width / 2 - pad - 14)} ${H / 2}h14M${n(W / 2 + text.width / 2 + pad)} ${H / 2}h14`, stroke: c.accent.ion, opacity: 0.6 }),
+    );
+  const css =
+    `.drift{animation:drift 24s linear infinite}@keyframes drift{to{transform:translateX(-${TILE}px)}}` +
+    `@media (max-width:600px){.ft{transform:scale(2.2);transform-origin:${W / 2}px ${H / 2}px}}`;
   return { files: [{ path: 'assets/ui/footer.svg', svg: svgDoc({ id: 'u-f', w: W, h: H, title: label, css, defs, body }) }] };
 }

@@ -15,6 +15,8 @@ const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 
 const img = (src, alt, size) => `<img src="${src}" ${size} alt="${esc(alt)}">`;
 const linked = (href, inner) => (href ? `<a href="${esc(href)}">${inner}</a>` : inner);
+// Narrow screens (≤ 600 px) get the 360 px layout, so the type stays legible.
+const narrow = (src, image) => `<picture>\n  <source media="(max-width: 600px)" srcset="${src}">\n  ${image}\n</picture>`;
 
 function header(section) {
   return [
@@ -29,7 +31,7 @@ function header(section) {
 const BLOCKS = {
   hero: ({ profile }) => {
     const alt = `${profile.displayName} — animated black hole with a glowing accretion disk`;
-    const hero = img('assets/hero/hero.svg', alt, 'width="100%"');
+    const hero = narrow('assets/hero/hero-mobile.svg', img('assets/hero/hero.svg', alt, 'width="100%"'));
     return `<p align="center">${linked(profile.site.live ? profile.site.url : '', hero)}</p>`;
   },
 
@@ -57,7 +59,7 @@ const BLOCKS = {
     const out = [header(section), '', ...rows.map((row) => `<p align="center">\n  ${row.map(card).join('\n  ')}\n</p>`)];
     if (profile.skills.some((s) => s.stack.length)) {
       const alt = profile.skills.filter((s) => s.stack.length).map((s) => `${s.title}: ${s.stack.join(', ')}`).join('; ');
-      out.push(`<p align="center">${img('assets/stack/stack.svg', `Tech constellation — ${alt}`, 'width="100%"')}</p>`);
+      out.push(`<p align="center">${narrow('assets/stack/stack-mobile.svg', img('assets/stack/stack.svg', `Tech constellation — ${alt}`, 'width="100%"'))}</p>`);
     }
     return out.join('\n');
   },
@@ -67,9 +69,9 @@ const BLOCKS = {
     const section = sections(profile, data).find((s) => s.id === 'observatory');
     if (!section) return '';
     const stats = metrics(gh).map((m) => `${m.v} ${m.alt}`).join(', ');
-    const out = [header(section), '', `<p align="center">${img('assets/stats/telemetry.svg', `Observatory: ${stats}. Synced ${syncedStamp(gh)}.`, 'width="100%"')}</p>`];
-    if (gh.languages.length) out.push(`<p align="center">${img('assets/stats/languages.svg', `Language orbits: ${topLanguages(gh, tokens).map((l) => `${l.name} ${pct(l.share)}`).join(', ')}`, 'width="100%"')}</p>`);
-    out.push(`<p align="center">${img('assets/galaxy/galaxy.svg', `Contribution galaxy: ${galaxyCaption(gh)}`, 'width="100%"')}</p>`);
+    const out = [header(section), '', `<p align="center">${narrow('assets/stats/telemetry-mobile.svg', img('assets/stats/telemetry.svg', `Observatory: ${stats}. Synced ${syncedStamp(gh)}.`, 'width="100%"'))}</p>`];
+    if (gh.languages.length) out.push(`<p align="center">${narrow('assets/stats/languages-mobile.svg', img('assets/stats/languages.svg', `Language orbits: ${topLanguages(gh, tokens).map((l) => `${l.name} ${pct(l.share)}`).join(', ')}`, 'width="100%"'))}</p>`);
+    out.push(`<p align="center">${narrow('assets/galaxy/galaxy-mobile.svg', img('assets/galaxy/galaxy.svg', `Contribution galaxy: ${galaxyCaption(gh)}`, 'width="100%"'))}</p>`);
     return out.join('\n');
   },
 
@@ -85,13 +87,12 @@ const BLOCKS = {
       header(section),
       '',
       '<!-- FEED:START -->',
-      // Narrow screens get the 360 px layout, so the panel's type stays legible.
-      `<p align="center">${linked(url, `<picture>\n  <source media="(max-width: 600px)" srcset="assets/game/blackhole-mobile.svg?v=${mass}">\n  ${img(`assets/game/blackhole.svg?v=${mass}`, alt, 'width="100%"')}\n</picture>`)}</p>`,
+      `<p align="center">${linked(url, narrow(`assets/game/blackhole-mobile.svg?v=${mass}`, img(`assets/game/blackhole.svg?v=${mass}`, alt, 'width="100%"')))}</p>`,
       `<p align="center">${linked(url, img('assets/ui/btn-feed.svg', COPY.button, 'height="44"'))}</p>`,
       '<!-- FEED:END -->',
       // C11 site CTA, outside the FEED markers so the game workflow never touches it.
       ...(profile.site.live
-        ? [`<p align="center">${linked(profile.site.url, `<picture>\n  <source media="(max-width: 600px)" srcset="assets/ui/cta-mobile.svg">\n  ${img('assets/ui/cta.svg', CTA.alt, 'width="100%"')}\n</picture>`)}</p>`]
+        ? [`<p align="center">${linked(profile.site.url, narrow('assets/ui/cta-mobile.svg', img('assets/ui/cta.svg', CTA.alt, 'width="100%"')))}</p>`]
         : []),
     ].join('\n');
   },

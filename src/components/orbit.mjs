@@ -56,7 +56,7 @@ export default function render({ profile, tokens, fonts }) {
       el('circle', { r: pr + 5, fill: s.color, opacity: 0.16 }) +
       el('circle', { r: pr, fill: `url(#o-p${i})` }) +
       // Counter-rotate the label so it stays level while the orbit is tilted.
-      el('g', { transform: `rotate(${-tilt})` }, el('path', { d: tp.d, fill: c.text.onDark, opacity: 0.85 }));
+      el('g', { transform: `rotate(${-tilt})` }, el('path', { class: 'lbl', d: tp.d, fill: c.text.onDark, opacity: 0.85 }));
     const rider = (half) => el('g', { 'clip-path': `url(#o-${half})` }, el('g', {}, planet + el('animateMotion', { dur: `${dur}s`, begin, repeatCount: 'indefinite', path: orbit })));
 
     lines += frame(el('path', { d: orbit, fill: 'none', stroke: s.color, 'stroke-width': 0.8, opacity: 0.3 }));
@@ -85,7 +85,9 @@ export default function render({ profile, tokens, fonts }) {
 
   const css =
     TWINKLE_CSS +
-    '.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 4s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.12);opacity:.8}}';
+    '.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 4s ease-in-out infinite}@keyframes pulse{50%{transform:scale(1.12);opacity:.8}}' +
+    // On phones the porthole renders ~105 px wide; its labels would be ~3 px, so they go.
+    '@media (max-width:200px){.lbl{display:none}}';
   const names = skills.map((s) => s.title).join(', ');
   const svg = svgDoc({
     id: 'o',

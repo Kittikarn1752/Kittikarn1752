@@ -9,18 +9,44 @@ import { textPath, capHeight, measure, caps } from '../lib/text.mjs';
 const W = 880;
 const H = 368;
 
-// Composition: the hole sits on the right third, the wordmark on the left
-// (direction A "Gargantua", picked in the P1 concept sprint).
-const LOOK = {
-  hole: { cx: 636, cy: 184, rsh: 54 },
+const PHYSICS = {
   tilt: 0.15, // cos(inclination): near edge-on
   disk: { inner: 1.18, outer: 3.9, rings: 9 },
   halo: { shift: 0.17, reach: 1.52, a: 1 },
   beam: [0.38, 1],
   bloom: { rx: 3.6, ry: 1.25, a: 0.2 },
   flare: 0.32,
-  type: { x: 56, maxW: 344, baseline: 190, size: 46 },
+};
+
+// Composition: the hole sits on the right third, the wordmark on the left
+// (direction A "Gargantua", picked in the P1 concept sprint).
+const LOOK = {
+  ...PHYSICS,
+  w: W,
+  h: H,
+  hole: { cx: 636, cy: 184, rsh: 54 },
+  type: { x: 56, maxW: 344, baseline: 190, size: 46, roleGap: 40, staticW: 404, staticRows: 1 },
+  label: { x: 56, y: 56 },
   coords: { x: 56, y: 328 },
+  inset: 20,
+  bg: { stars: 170, nebV: [210, 70, 340, 150], nebI: [790, 330, 300, 120], vig: [W * 0.55, H / 2, 560], voidR: 620 },
+};
+
+// Phone layout (≤ 600 px, through <picture>), concept B "cinematic crop"
+// picked in P5: 360 wide, so the HUD and role type render near their design
+// size instead of ~5 px at 375 px. The disk runs off the right edge; the
+// coordinates line is dropped.
+const PH = 320;
+const PHONE = {
+  ...PHYSICS,
+  w: 360,
+  h: PH,
+  hole: { cx: 240, cy: 120, rsh: 44 },
+  type: { x: 28, maxW: 304, baseline: 236, size: 46, roleGap: 34, staticW: 304, staticRows: 2 },
+  label: { x: 28, y: 40 },
+  coords: null,
+  inset: 12,
+  bg: { stars: Math.round((170 * 360 * PH) / (W * H)), nebV: [86, PH * 0.18, 220, PH * 0.3], nebI: [324, PH * 0.88, 180, PH * 0.22], vig: [180, 120, 380], voidR: 420 },
 };
 
 const HUD_LINE = 'SGR A* · RA 17h45m40s · DEC −29°00′28″';
@@ -220,25 +246,28 @@ export function blackHole(r, look, c, { id = 'h', w = W, h = H } = {}) {
 
 function background(r, look, c, tokens) {
   const { cx, cy, rsh } = look.hole;
+  const { w, h, bg } = look;
+  const [vx, vy, vr] = bg.vig;
+  const ellipse = ([ecx, ecy, rx, ry], fill) => el('ellipse', { cx: n(ecx), cy: n(ecy), rx: n(rx), ry: n(ry), fill });
   const defs =
     el(
       'radialGradient',
-      { id: 'h-voidG', gradientUnits: 'userSpaceOnUse', cx, cy, r: 620 },
+      { id: 'h-voidG', gradientUnits: 'userSpaceOnUse', cx, cy, r: bg.voidR },
       el('stop', { offset: 0, 'stop-color': c.deep }) + el('stop', { offset: 1, 'stop-color': c.void }),
     ) +
     el(
       'radialGradient',
-      { id: 'h-vigG', gradientUnits: 'userSpaceOnUse', cx: W * 0.55, cy: H / 2, r: 560 },
+      { id: 'h-vigG', gradientUnits: 'userSpaceOnUse', cx: n(vx), cy: n(vy), r: vr },
       el('stop', { offset: 0.5, 'stop-color': c.void, 'stop-opacity': 0 }) + el('stop', { offset: 1, 'stop-color': c.void, 'stop-opacity': 0.85 }),
     ) +
     el('radialGradient', { id: 'h-nebV' }, el('stop', { offset: 0, 'stop-color': tokens.color.accent.violet, 'stop-opacity': 0.13 }) + el('stop', { offset: 1, 'stop-color': tokens.color.accent.violet, 'stop-opacity': 0 })) +
     el('radialGradient', { id: 'h-nebI' }, el('stop', { offset: 0, 'stop-color': tokens.color.accent.ion, 'stop-opacity': 0.07 }) + el('stop', { offset: 1, 'stop-color': tokens.color.accent.ion, 'stop-opacity': 0 }));
   const body =
-    el('rect', { width: W, height: H, fill: 'url(#h-voidG)' }) +
-    el('ellipse', { cx: 210, cy: 70, rx: 340, ry: 150, fill: 'url(#h-nebV)' }) +
-    el('ellipse', { cx: 790, cy: 330, rx: 300, ry: 120, fill: 'url(#h-nebI)' }) +
-    starfield(r, { w: W, h: H, count: 170, color: c.photon, twinkleShare: tokens.motion.twinkleShare, avoid: [{ x: cx, y: cy, r: rsh * 1.7 }] });
-  return { defs, body, vignette: el('rect', { width: W, height: H, fill: 'url(#h-vigG)' }) };
+    el('rect', { width: w, height: h, fill: 'url(#h-voidG)' }) +
+    ellipse(bg.nebV, 'url(#h-nebV)') +
+    ellipse(bg.nebI, 'url(#h-nebI)') +
+    starfield(r, { w, h, count: bg.stars, color: c.photon, twinkleShare: tokens.motion.twinkleShare, avoid: [{ x: cx, y: cy, r: rsh * 1.7 }] });
+  return { defs, body, vignette: el('rect', { width: w, height: h, fill: 'url(#h-vigG)' }) };
 }
 
 // Wordmark with sheen (R6), role rotator (R7) and HUD.
@@ -267,7 +296,7 @@ function typography(look, profile, fonts, tokens) {
 
   // Role rotator: five titles, 3 s each (15 s), typed in mono with a caret.
   const roleSize = 17;
-  const roleY = baseline + 40;
+  const roleY = baseline + look.type.roleGap;
   const roles = profile.skills.map((s) => caps(s.title));
   const prompt = textPath(fonts.monoBold, '›', { x, y: roleY, size: roleSize });
   const rx = x + prompt.width + 10;
@@ -286,11 +315,14 @@ function typography(look, profile, fonts, tokens) {
       el('g', { 'clip-path': `url(#h-r${i})` }, el('path', { d: tp.d, fill: c.text.onDark }) + el('rect', { class: 'caret', x: rx + tp.width + 5, y: roleY - capR - 1, width: 2, height: capR + 3, fill: c.accent.ion })),
     );
   });
-  // Static fallback: all five on one line, sized to fit.
-  const all = profile.skills.map((s) => s.title).join('  ·  ');
-  const allSize = Math.min(13, (maxW + 60) / measure(fonts.mono, all, 1));
-  const allLine = textPath(fonts.mono, all, { x, y: roleY, size: allSize });
-  body += el('g', { class: 'roles' }, roleBody) + el('path', { class: 'static', d: allLine.d, fill: c.text.onDark });
+  // Static fallback: all five titles on `staticRows` lines, sized to fit.
+  const titles = profile.skills.map((s) => s.title);
+  const per = Math.ceil(titles.length / look.type.staticRows);
+  const rows = [];
+  for (let i = 0; i < titles.length; i += per) rows.push(titles.slice(i, i + per).join('  ·  '));
+  const allSize = Math.min(13, ...rows.map((row) => look.type.staticW / measure(fonts.mono, row, 1)));
+  const allD = rows.map((row, i) => textPath(fonts.mono, row, { x, y: roleY + i * (allSize + 7), size: allSize }).d).join('');
+  body += el('g', { class: 'roles' }, roleBody) + el('path', { class: 'static', d: allD, fill: c.text.onDark });
   css +=
     '.role{opacity:0;animation:role 15s linear infinite}.r0{opacity:1}' +
     '@keyframes role{0%,19.9%{opacity:1}20%,100%{opacity:0}}' +
@@ -307,26 +339,29 @@ function typography(look, profile, fonts, tokens) {
 function hud(look, fonts, tokens) {
   const c = tokens.color;
   const muted = c.text.mutedOnDark;
+  const { w, h } = look;
   let out = '';
-  const coord = textPath(fonts.mono, HUD_LINE, { x: look.coords.x, y: look.coords.y, size: 10.5, tracking: 0.06 });
-  out += el('path', { d: coord.d, fill: muted });
-  const label = textPath(fonts.mono, 'EVENT HORIZON', { x: 56, y: 56, size: 10.5, tracking: 0.32 });
+  if (look.coords) {
+    const coord = textPath(fonts.mono, HUD_LINE, { x: look.coords.x, y: look.coords.y, size: 10.5, tracking: 0.06 });
+    out += el('path', { d: coord.d, fill: muted });
+  }
+  const label = textPath(fonts.mono, 'EVENT HORIZON', { x: look.label.x, y: look.label.y, size: 10.5, tracking: 0.32 });
   out += el('path', { d: label.d, fill: c.accent.ion, opacity: 0.85 });
-  out += el('rect', { x: 56 + label.width + 14, y: 52, width: 40, height: 1, fill: c.accent.ion, opacity: 0.5 });
+  out += el('rect', { x: n(look.label.x + label.width + 14), y: look.label.y - 4, width: 40, height: 1, fill: c.accent.ion, opacity: 0.5 });
 
   const bracket = (x, y, sx, sy, len = 14) => `M${n(x)} ${n(y + sy * len)}V${n(y)}H${n(x + sx * len)}`;
-  const m = 20;
-  const d = [bracket(m, m, 1, 1), bracket(W - m, m, -1, 1), bracket(m, H - m, 1, -1), bracket(W - m, H - m, -1, -1)].join('');
+  const m = look.inset;
+  const d = [bracket(m, m, 1, 1), bracket(w - m, m, -1, 1), bracket(m, h - m, 1, -1), bracket(w - m, h - m, -1, -1)].join('');
   out += el('path', { d, fill: 'none', stroke: c.accent.ion, 'stroke-width': 1, opacity: 0.55 });
   return out;
 }
 
-export default function render({ profile, tokens, fonts }) {
-  const look = LOOK;
+function heroSvg(look, seed, { profile, tokens, fonts }) {
+  const { w, h } = look;
   const c = { ...tokens.color.space, ...tokens.color.accretion };
-  const r = rng('hero');
+  const r = rng(seed);
   const bg = background(r, look, c, tokens);
-  const bh = blackHole(r, look, c);
+  const bh = blackHole(r, look, c, { w, h });
   const type = typography(look, profile, fonts, tokens);
 
   const css =
@@ -335,19 +370,27 @@ export default function render({ profile, tokens, fonts }) {
     type.css;
   const L = bh.layers;
   const scene = bg.body + L.streaks + L.bloom + L.diskBack + L.halo + L.particles + L.photon + L.shadow + L.diskFront + (L.flare ?? '') + bg.vignette;
-  const frame = el('rect', { x: 0.5, y: 0.5, width: W - 1, height: H - 1, rx: 23.5, fill: 'none', stroke: c.line, 'stroke-width': 1 });
+  const frame = el('rect', { x: 0.5, y: 0.5, width: w - 1, height: h - 1, rx: 23.5, fill: 'none', stroke: c.line, 'stroke-width': 1 });
   const body = el('g', { 'clip-path': 'url(#h-clip)' }, scene + type.body + hud(look, fonts, tokens)) + frame;
-  const defs = el('clipPath', { id: 'h-clip' }, el('rect', { width: W, height: H, rx: 24 })) + bg.defs + bh.defs + type.defs;
+  const defs = el('clipPath', { id: 'h-clip' }, el('rect', { width: w, height: h, rx: 24 })) + bg.defs + bh.defs + type.defs;
   const titles = profile.skills.map((s) => s.title).join(', ');
-  const svg = svgDoc({
+  return svgDoc({
     id: 'h',
-    w: W,
-    h: H,
+    w,
+    h,
     title: `${profile.displayName} — Event Horizon`,
-    desc: `Animated black hole with a rotating accretion disk beside the name ${profile.displayName}. Roles: ${titles}.`,
+    desc: `Animated black hole with a rotating accretion disk ${look.w === W ? 'beside' : 'with'} the name ${profile.displayName}. Roles: ${titles}.`,
     css,
     defs,
     body,
   });
-  return { files: [{ path: 'assets/hero/hero.svg', svg }] };
+}
+
+export default function render(ctx) {
+  return {
+    files: [
+      { path: 'assets/hero/hero.svg', svg: heroSvg(LOOK, 'hero', ctx) },
+      { path: 'assets/hero/hero-mobile.svg', svg: heroSvg(PHONE, 'hero-mobile', ctx) },
+    ],
+  };
 }
