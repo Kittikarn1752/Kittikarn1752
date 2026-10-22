@@ -1,37 +1,47 @@
 {
-  "generatedAt": "2026-10-21T15:01:35Z",
+  "generatedAt": "2026-10-22T08:39:14Z",
   "user": {
     "login": "Kittikarn1752",
     "name": "Kittikarn",
     "followers": 0,
-    "publicRepos": 3
+    "publicRepos": 4
   },
   "totals": {
     "stars": 0,
-    "contributionsYear": 29,
-    "commitsYear": 26,
+    "contributionsYear": 44,
+    "commitsYear": 36,
     "prs": 0,
-    "issues": 0
+    "issues": 4
   },
   "streak": {
-    "current": 1,
-    "longest": 1
+    "current": 2,
+    "longest": 2
   },
   "languages": [
     {
       "name": "JavaScript",
-      "bytes": 133679,
-      "share": 0.884
+      "bytes": 187716,
+      "share": 0.6555
     },
     {
-      "name": "HTML",
-      "bytes": 9072,
-      "share": 0.06
+      "name": "TypeScript",
+      "bytes": 50506,
+      "share": 0.1764
     },
     {
       "name": "CSS",
-      "bytes": 8476,
-      "share": 0.056
+      "bytes": 21839,
+      "share": 0.0763
+    },
+    {
+      "name": "GLSL",
+      "bytes": 15555,
+      "share": 0.0543
+    },
+    {
+      "name": "HTML",
+      "bytes": 10769,
+      "share": 0.0376
     }
   ],
   "calendar": [
@@ -303,7 +313,7 @@
     {
       "date": "2025-12-11",
       "count": 8,
-      "level": 4
+      "level": 3
     },
     {
       "date": "2025-12-12",
@@ -618,7 +628,7 @@
     {
       "date": "2026-02-12",
       "count": 7,
-      "level": 4
+      "level": 3
     },
     {
       "date": "2026-02-13",
@@ -653,7 +663,7 @@
     {
       "date": "2026-02-19",
       "count": 6,
-      "level": 4
+      "level": 2
     },
     {
       "date": "2026-02-20",
@@ -1872,7 +1882,12 @@
     },
     {
       "date": "2026-10-21",
-      "count": 8,
+      "count": 11,
+      "level": 4
+    },
+    {
+      "date": "2026-10-22",
+      "count": 12,
       "level": 4
     }
   ],
@@ -1883,22 +1898,50 @@
       "stars": 0,
       "language": "JavaScript",
       "url": "https://github.com/Kittikarn1752/Kittikarn1752"
+    },
+    {
+      "name": "Kittikarn1752/Kittikarn1752.github.io",
+      "description": "Event Horizon: Kittikarn's WebGL companion site",
+      "stars": 0,
+      "language": "TypeScript",
+      "url": "https://github.com/Kittikarn1752/Kittikarn1752.github.io"
     }
   ],
   "events": [
     {
-      "type": "PushEvent",
-      "repo": "Kittikarn1752/Kittikarn1752",
-      "title": "Pushed to main",
-      "url": "https://github.com/Kittikarn1752/Kittikarn1752/commit/bd6c4c9a2829113c989bb489c04b8e49580f860a",
-      "createdAt": "2026-10-21T15:00:25Z"
+      "type": "CreateEvent",
+      "repo": "Kittikarn1752/Kittikarn1752.github.io",
+      "title": "Created branch main",
+      "url": "https://github.com/Kittikarn1752/Kittikarn1752.github.io/tree/main",
+      "createdAt": "2026-10-22T02:10:06Z"
     },
     {
       "type": "PushEvent",
       "repo": "Kittikarn1752/Kittikarn1752",
       "title": "Pushed to main",
-      "url": "https://github.com/Kittikarn1752/Kittikarn1752/commit/60d6399e2e2f6f319d976198cd87f09ebd6ab782",
-      "createdAt": "2026-10-21T14:25:23Z"
+      "url": "https://github.com/Kittikarn1752/Kittikarn1752/commit/9f57d33755bdda0a16c5b12e94ed7341ea67d516",
+      "createdAt": "2026-10-22T02:59:22Z"
+    },
+    {
+      "type": "IssuesEvent",
+      "repo": "Kittikarn1752/Kittikarn1752",
+      "title": "Opened issue #4: feed|star",
+      "url": "https://github.com/Kittikarn1752/Kittikarn1752/issues/4",
+      "createdAt": "2026-10-22T01:03:57Z"
+    },
+    {
+      "type": "IssuesEvent",
+      "repo": "Kittikarn1752/Kittikarn1752",
+      "title": "Opened issue #3: feed|star",
+      "url": "https://github.com/Kittikarn1752/Kittikarn1752/issues/3",
+      "createdAt": "2026-10-22T01:03:13Z"
+    },
+    {
+      "type": "IssuesEvent",
+      "repo": "Kittikarn1752/Kittikarn1752",
+      "title": "Opened issue #2: feed|star",
+      "url": "https://github.com/Kittikarn1752/Kittikarn1752/issues/2",
+      "createdAt": "2026-10-22T01:00:03Z"
     }
   ]
 }

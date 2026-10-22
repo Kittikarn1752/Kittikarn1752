@@ -35,9 +35,9 @@ Student learning to code by building games and websites, now digging into AI and
   <img src="assets/ui/h-observatory-dark.svg" width="100%" alt="Observatory">
 </picture>
 
-<p align="center"><img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 29 contributions in the last year, 26 commits in the last year, 3 public repos, 1 day current streak, 1 day longest streak. Synced 2026-10-21 15:01 UTC."></p>
-<p align="center"><img src="assets/stats/languages.svg" width="100%" alt="Language orbits: JavaScript 88.4%, HTML 6.0%, CSS 5.6%"></p>
-<p align="center"><img src="assets/galaxy/galaxy.svg" width="100%" alt="Contribution galaxy: 29 contributions in the last year · longest streak 1 day"></p>
+<p align="center"><img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 44 contributions in the last year, 36 commits in the last year, 4 issues, 4 public repos, 2 days current streak, 2 days longest streak. Synced 2026-10-22 08:39 UTC."></p>
+<p align="center"><img src="assets/stats/languages.svg" width="100%" alt="Language orbits: JavaScript 65.5%, TypeScript 17.6%, CSS 7.6%, GLSL 5.4%, HTML 3.8%"></p>
+<p align="center"><img src="assets/galaxy/galaxy.svg" width="100%" alt="Contribution galaxy: 44 contributions in the last year · longest streak 2 days"></p>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/ui/h-interact-dark.svg">
@@ -57,12 +57,25 @@ Student learning to code by building games and websites, now digging into AI and
   <img src="assets/ui/cta.svg" width="100%" alt="Enter the Event Horizon: the interactive WebGL companion site">
 </picture></a></p>
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/ui/h-missions-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/ui/h-missions-light.svg">
+  <img src="assets/ui/h-missions-dark.svg" width="100%" alt="Missions">
+</picture>
+
+<p align="center">
+  <a href="https://github.com/Kittikarn1752/Kittikarn1752.github.io"><img src="assets/missions/m1.svg" width="270" alt="Kittikarn1752.github.io — Event Horizon: Kittikarn's WebGL companion site"></a>
+</p>
+
 <details>
 <summary><b>Ship's log</b> · recent transmissions</summary>
 
 <!-- LOG:START -->
-- 2026-10-21 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/bd6c4c9a2829113c989bb489c04b8e49580f860a) · Kittikarn1752/Kittikarn1752
-- 2026-10-21 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/60d6399e2e2f6f319d976198cd87f09ebd6ab782) · Kittikarn1752/Kittikarn1752
+- 2026-10-22 · [Created branch main](https://github.com/Kittikarn1752/Kittikarn1752.github.io/tree/main) · Kittikarn1752/Kittikarn1752.github.io
+- 2026-10-22 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/9f57d33755bdda0a16c5b12e94ed7341ea67d516) · Kittikarn1752/Kittikarn1752
+- 2026-10-22 · [Opened issue \#4: feed\|star](https://github.com/Kittikarn1752/Kittikarn1752/issues/4) · Kittikarn1752/Kittikarn1752
+- 2026-10-22 · [Opened issue \#3: feed\|star](https://github.com/Kittikarn1752/Kittikarn1752/issues/3) · Kittikarn1752/Kittikarn1752
+- 2026-10-22 · [Opened issue \#2: feed\|star](https://github.com/Kittikarn1752/Kittikarn1752/issues/2) · Kittikarn1752/Kittikarn1752
 <!-- LOG:END -->
 
 </details>
