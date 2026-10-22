@@ -39,6 +39,17 @@ Student learning to code by building games and websites, now digging into AI and
 <p align="center"><img src="assets/stats/languages.svg" width="100%" alt="Language orbits: JavaScript 88.4%, HTML 6.0%, CSS 5.6%"></p>
 <p align="center"><img src="assets/galaxy/galaxy.svg" width="100%" alt="Contribution galaxy: 29 contributions in the last year · longest streak 1 day"></p>
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/ui/h-interact-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/ui/h-interact-light.svg">
+  <img src="assets/ui/h-interact-dark.svg" width="100%" alt="Interact">
+</picture>
+
+<!-- FEED:START -->
+<p align="center"><a href="https://github.com/Kittikarn1752/Kittikarn1752/issues/new?title=feed%7Cstar&amp;body=Press%20**Submit%20new%20issue**%20to%20throw%20a%20star%20into%20the%20black%20hole.%20A%20bot%20adds%20it%20within%20a%20minute%20or%20two%2C%20replies%20here%20and%20closes%20the%20issue.%20Your%20%40handle%20and%20avatar%20will%20appear%20on%20this%20profile.%20One%20star%20per%20person%20per%20hour."><img src="assets/game/blackhole.svg?v=0" width="100%" alt="Feed the Black Hole: 0 stars devoured. Opens an issue that throws in a star."></a></p>
+<p align="center"><a href="https://github.com/Kittikarn1752/Kittikarn1752/issues/new?title=feed%7Cstar&amp;body=Press%20**Submit%20new%20issue**%20to%20throw%20a%20star%20into%20the%20black%20hole.%20A%20bot%20adds%20it%20within%20a%20minute%20or%20two%2C%20replies%20here%20and%20closes%20the%20issue.%20Your%20%40handle%20and%20avatar%20will%20appear%20on%20this%20profile.%20One%20star%20per%20person%20per%20hour."><img src="assets/ui/btn-feed.svg" height="44" alt="Feed the black hole"></a></p>
+<!-- FEED:END -->
+
 <details>
 <summary><b>Ship's log</b> · recent transmissions</summary>
 

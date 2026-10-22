@@ -14,6 +14,7 @@ export function sections(profile, data = {}) {
   const list = [];
   if (profile.skills.length) list.push({ id: 'skills', title: 'Skills', meta: `${profile.skills.length} ORBITS` });
   if (data.github) list.push({ id: 'observatory', title: 'Observatory', meta: 'LIVE · SYNCED DAILY' });
+  if (data.game) list.push({ id: 'interact', title: 'Interact', meta: 'POWERED BY ISSUES' });
   const m = missions(profile, data.github).length;
   if (m) list.push({ id: 'missions', title: 'Missions', meta: `${m} MISSION${m > 1 ? 'S' : ''}` });
   if (profile.links.length) list.push({ id: 'contact', title: 'Contact', meta: `${profile.links.length} CHANNEL${profile.links.length > 1 ? 'S' : ''}` });

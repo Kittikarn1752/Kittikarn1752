@@ -6,6 +6,8 @@
 
 <!-- slot:observatory -->
 
+<!-- slot:interact -->
+
 <!-- slot:missions -->
 
 <!-- slot:log -->

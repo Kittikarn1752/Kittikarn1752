@@ -37,7 +37,8 @@ function dashes(r, circumference, { minRepeat = 3, density = 0.6 } = {}) {
   return parts.map((p) => n((p / sum) * unit)).join(' ');
 }
 
-function blackHole(r, look, c) {
+// Exported for the game (C8): `id` prefixes every def, `w`/`h` size the clips.
+export function blackHole(r, look, c, { id = 'h', w = W, h = H } = {}) {
   const { cx, cy, rsh } = look.hole;
   const rin = rsh * look.disk.inner;
   const rout = rsh * look.disk.outer;
@@ -51,7 +52,7 @@ function blackHole(r, look, c) {
   defs.push(
     el(
       'radialGradient',
-      { id: 'h-diskG', gradientUnits: 'userSpaceOnUse', cx: 0, cy: 0, r: rout },
+      { id: `${id}-diskG`, gradientUnits: 'userSpaceOnUse', cx: 0, cy: 0, r: rout },
       [
         el('stop', { offset: f(rin * 0.97), 'stop-color': c.photon, 'stop-opacity': 0 }),
         el('stop', { offset: f(rin), 'stop-color': c.photon, 'stop-opacity': 0.95 }),
@@ -80,25 +81,25 @@ function blackHole(r, look, c) {
       el('circle', { r: radius, fill: 'none', stroke: color, 'stroke-width': width, 'stroke-dasharray': dash, opacity }),
     );
   }
-  const disk = el('g', { transform: `translate(${n(cx)} ${n(cy)}) scale(1 ${n(t)})` }, el('path', { d: annulus, 'fill-rule': 'evenodd', fill: 'url(#h-diskG)' }) + rings + el('circle', { r: rin * 1.02, fill: 'none', stroke: c.photon, 'stroke-width': 1.4, 'vector-effect': 'non-scaling-stroke', opacity: 0.85 }));
+  const disk = el('g', { transform: `translate(${n(cx)} ${n(cy)}) scale(1 ${n(t)})` }, el('path', { d: annulus, 'fill-rule': 'evenodd', fill: `url(#${id}-diskG)` }) + rings + el('circle', { r: rin * 1.02, fill: 'none', stroke: c.photon, 'stroke-width': 1.4, 'vector-effect': 'non-scaling-stroke', opacity: 0.85 }));
 
   // The two halves come from the same disk: the far half sits behind the
   // shadow, the near half crosses in front of it.
-  defs.push(el('clipPath', { id: 'h-back' }, el('rect', { width: W, height: cy })));
-  defs.push(el('clipPath', { id: 'h-front' }, el('rect', { y: cy, width: W, height: H - cy })));
+  defs.push(el('clipPath', { id: `${id}-back` }, el('rect', { width: w, height: cy })));
+  defs.push(el('clipPath', { id: `${id}-front` }, el('rect', { y: cy, width: w, height: h - cy })));
 
   // Doppler beaming: a static mask that brightens the approaching (right) side.
   defs.push(
     el(
       'linearGradient',
-      { id: 'h-beamG', gradientUnits: 'userSpaceOnUse', x1: cx - rout, x2: cx + rout, y1: 0, y2: 0 },
+      { id: `${id}-beamG`, gradientUnits: 'userSpaceOnUse', x1: cx - rout, x2: cx + rout, y1: 0, y2: 0 },
       el('stop', { offset: 0, 'stop-color': '#fff', 'stop-opacity': look.beam[0] }) + el('stop', { offset: 1, 'stop-color': '#fff', 'stop-opacity': look.beam[1] }),
     ),
   );
-  defs.push(el('mask', { id: 'h-beam', maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: W, height: H }, el('rect', { width: W, height: H, fill: 'url(#h-beamG)' })));
+  defs.push(el('mask', { id: `${id}-beam`, maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: w, height: h }, el('rect', { width: w, height: h, fill: `url(#${id}-beamG)` })));
 
-  layers.diskBack = el('g', { 'clip-path': 'url(#h-back)', mask: 'url(#h-beam)' }, disk);
-  layers.diskFront = el('g', { 'clip-path': 'url(#h-front)', mask: 'url(#h-beam)' }, disk);
+  layers.diskBack = el('g', { 'clip-path': `url(#${id}-back)`, mask: `url(#${id}-beam)` }, disk);
+  layers.diskFront = el('g', { 'clip-path': `url(#${id}-front)`, mask: `url(#${id}-beam)` }, disk);
 
   // Lensed far side of the disk: a halo whose centre sits above the hole, so
   // the arc over the shadow is thicker than the one beneath it.
@@ -110,7 +111,7 @@ function blackHole(r, look, c) {
   defs.push(
     el(
       'radialGradient',
-      { id: 'h-haloG', gradientUnits: 'userSpaceOnUse', cx, cy: hcy, r: reach },
+      { id: `${id}-haloG`, gradientUnits: 'userSpaceOnUse', cx, cy: hcy, r: reach },
       [
         el('stop', { offset: g(top - 0.04), 'stop-color': c.photon, 'stop-opacity': 0 }),
         el('stop', { offset: g(top), 'stop-color': c.photon, 'stop-opacity': 0.95 * look.halo.a }),
@@ -138,31 +139,31 @@ function blackHole(r, look, c) {
       }),
     );
   }
-  layers.halo = el('g', { mask: 'url(#h-beam)' }, el('circle', { cx, cy: hcy, r: reach, fill: 'url(#h-haloG)' }) + haloTexture);
+  layers.halo = el('g', { mask: `url(#${id}-beam)` }, el('circle', { cx, cy: hcy, r: reach, fill: `url(#${id}-haloG)` }) + haloTexture);
 
   // Bloom and anamorphic flare: static light, no filters.
   defs.push(
     el(
       'radialGradient',
-      { id: 'h-bloomG' },
+      { id: `${id}-bloomG` },
       el('stop', { offset: 0, 'stop-color': c.gold, 'stop-opacity': look.bloom.a }) +
         el('stop', { offset: 0.45, 'stop-color': c.plasma, 'stop-opacity': look.bloom.a * 0.35 }) +
         el('stop', { offset: 1, 'stop-color': c.plasma, 'stop-opacity': 0 }),
     ),
   );
-  layers.bloom = el('ellipse', { cx, cy, rx: rsh * look.bloom.rx, ry: rsh * look.bloom.ry, fill: 'url(#h-bloomG)' });
+  layers.bloom = el('ellipse', { cx, cy, rx: rsh * look.bloom.rx, ry: rsh * look.bloom.ry, fill: `url(#${id}-bloomG)` });
   if (look.flare) {
     defs.push(
       el(
         'linearGradient',
-        { id: 'h-flareG' },
+        { id: `${id}-flareG` },
         el('stop', { offset: 0, 'stop-color': c.photon, 'stop-opacity': 0 }) +
           el('stop', { offset: 0.5, 'stop-color': c.photon, 'stop-opacity': look.flare }) +
           el('stop', { offset: 1, 'stop-color': c.photon, 'stop-opacity': 0 }),
       ),
     );
     const fw = rout * 2.5;
-    layers.flare = el('rect', { x: cx - fw / 2, y: cy + rin * t - 0.6, width: fw, height: 1.2, fill: 'url(#h-flareG)' });
+    layers.flare = el('rect', { x: cx - fw / 2, y: cy + rin * t - 0.6, width: fw, height: 1.2, fill: `url(#${id}-flareG)` });
   }
 
   // Photon ring and shadow (≈ 2.6 Rs).

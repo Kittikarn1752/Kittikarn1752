@@ -23,17 +23,18 @@ import telemetry from './components/telemetry.mjs';
 import languages from './components/languages.mjs';
 import galaxy from './components/galaxy.mjs';
 import missions from './components/missions.mjs';
-import { DATA_FILE, loadData } from './lib/data.mjs';
+import game from './components/game.mjs';
+import { DATA_FILE, loadData, loadGame } from './lib/data.mjs';
 import { spawnSync } from 'node:child_process';
 
 export const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-export const COMPONENTS = { hero, orbit, cards, stack, headers, buttons, footer, telemetry, languages, galaxy, missions };
+export const COMPONENTS = { hero, orbit, cards, stack, headers, buttons, footer, telemetry, languages, galaxy, missions, game };
 
 export function context() {
   const tokens = JSON.parse(readFileSync(join(ROOT, 'design/tokens.json'), 'utf8'));
   const profile = loadProfile(join(ROOT, 'profile.yaml'), tokens);
   const fonts = loadFonts(join(ROOT, 'design/fonts'));
-  const data = { year: new Date().getUTCFullYear(), github: loadData(ROOT) };
+  const data = { year: new Date().getUTCFullYear(), github: loadData(ROOT), game: loadGame(ROOT) };
   return { profile, tokens, fonts, data };
 }
 

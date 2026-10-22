@@ -6,6 +6,8 @@ import { metrics, syncedStamp } from '../components/telemetry.mjs';
 import { pct, topLanguages } from '../components/languages.mjs';
 import { galaxyCaption } from '../components/galaxy.mjs';
 import { missions } from '../components/missions.mjs';
+import { COPY } from '../components/game.mjs';
+import { feedUrl } from '../game/feed.mjs';
 
 // User text goes into HTML blocks, so escape it (bio "-->" stays visible text).
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -68,6 +70,24 @@ const BLOCKS = {
     if (gh.languages.length) out.push(`<p align="center">${img('assets/stats/languages.svg', `Language orbits: ${topLanguages(gh, tokens).map((l) => `${l.name} ${pct(l.share)}`).join(', ')}`, 'width="100%"')}</p>`);
     out.push(`<p align="center">${img('assets/galaxy/galaxy.svg', `Contribution galaxy: ${galaxyCaption(gh)}`, 'width="100%"')}</p>`);
     return out.join('\n');
+  },
+
+  // C8: the game panel and button both open a prefilled feed|star issue.
+  // ?v=<mass> changes the image URL on every feed, so caches can't serve the old hole.
+  interact: ({ profile, data }) => {
+    const section = sections(profile, data).find((s) => s.id === 'interact');
+    if (!section) return '';
+    const { mass, entries } = data.game.state;
+    const url = feedUrl(profile.user);
+    const alt = `Feed the Black Hole: ${mass} ${mass === 1 ? 'star' : 'stars'} devoured${entries.length ? `, last fed by @${entries[0].login}` : ''}. Opens an issue that throws in a star.`;
+    return [
+      header(section),
+      '',
+      '<!-- FEED:START -->',
+      `<p align="center">${linked(url, img(`assets/game/blackhole.svg?v=${mass}`, alt, 'width="100%"'))}</p>`,
+      `<p align="center">${linked(url, img('assets/ui/btn-feed.svg', COPY.button, 'height="44"'))}</p>`,
+      '<!-- FEED:END -->',
+    ].join('\n');
   },
 
   missions: ({ profile, data }) => {

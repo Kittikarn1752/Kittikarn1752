@@ -77,6 +77,8 @@ Fill in these headings, in this order:
 - `npm run build`: profile.yaml + tokens → `assets/` + `README.md`, with sizes and animated-node counts against budget. `-- --only hero,cards` rebuilds some components.
 - `npm run fetch`: public GitHub data → `data/github.json` (uses `GITHUB_TOKEN`, else the local `gh`; keeps the old file on failure). `npm run build -- --fetch` fetches, then builds.
 - `npm run preview`: README rendered by GitHub's Markdown API (offline fallback: marked) at http://localhost:4173. In the app, `preview_start` with name `preview` (`.claude/launch.json`).
+- `npm test`: dry-run tests for the game rules (`node:test`, `src/**/*.test.mjs`).
+- `node src/game/run.mjs --dry-run --issues <file.json>`: plays sample issues against `data/blackhole.json` and writes nothing. In CI, `feed.yml` runs it without flags, then with `--reply`.
 - Record new commands here.
 
 ## Conventions

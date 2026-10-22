@@ -1,0 +1,66 @@
+# Feed the Black Hole (SPEC §5): an issue titled "feed|star" throws a star in.
+# Every run sweeps all open feed| issues oldest first, so nothing is lost if a
+# run is cancelled; run it by hand to sweep: gh workflow run feed.yml
+# Issue titles never reach a shell: src/game/run.mjs reads them from the API.
+name: feed
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+# One run at a time, the rest wait in line (up to 100); never cancel.
+concurrency:
+  group: blackhole
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  feed:
+    if: github.event_name == 'workflow_dispatch' || (startsWith(github.event.issue.title, 'feed|') && github.event.issue.user.type != 'Bot')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Play
+        id: play
+        run: node src/game/run.mjs
+
+      - run: npm run check
+
+      # A stats sync may land first: then replay on the newer main and retry.
+      - name: Commit and push
+        if: steps.play.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A data assets README.md
+          git commit -F "$RUNNER_TEMP/feed-message.txt"
+          for attempt in 1 2 3; do
+            git push && exit 0
+            echo "push rejected (attempt $attempt), replaying on the latest main"
+            git fetch origin main
+            git reset --hard origin/main
+            node src/game/run.mjs
+            git add -A data assets README.md
+            git diff --cached --quiet && exit 0
+            git commit -F "$RUNNER_TEMP/feed-message.txt"
+          done
+          exit 1
+
+      - name: Reply
+        run: node src/game/run.mjs --reply

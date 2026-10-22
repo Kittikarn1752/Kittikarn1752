@@ -1,7 +1,8 @@
 // Live data (SPEC §4): data/github.json, written by src/data/fetch.mjs.
-// Helpers here are pure apart from loadData, so fetch and build share them.
-import { existsSync, readFileSync } from 'node:fs';
+// Helpers here are pure apart from loadData and loadGame, so fetch and build share them.
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { EMPTY, STATE_FILE, validateState } from '../game/feed.mjs';
 
 export const DATA_FILE = 'data/github.json';
 export const FIXTURE_FILE = 'data/github.fixture.json';
@@ -62,4 +63,23 @@ export function loadData(root) {
     if (existsSync(path)) return { ...validate(JSON.parse(readFileSync(path, 'utf8'))), source: file };
   }
   return null;
+}
+
+// Game state (SPEC §5) plus cached avatars as data URIs, keyed by user id.
+// No data/blackhole.json yet means nothing has been fed.
+export const AVATAR_DIR = 'data/avatars';
+const MIME = { png: 'image/png', jpg: 'image/jpeg', gif: 'image/gif', webp: 'image/webp' };
+
+export function loadGame(root) {
+  const file = join(root, STATE_FILE);
+  const state = existsSync(file) ? validateState(JSON.parse(readFileSync(file, 'utf8'))) : EMPTY;
+  const avatars = {};
+  const dir = join(root, AVATAR_DIR);
+  if (existsSync(dir)) {
+    for (const name of readdirSync(dir).sort()) {
+      const m = name.match(/^(\d+)\.(png|jpg|gif|webp)$/);
+      if (m) avatars[m[1]] = `data:${MIME[m[2]]};base64,${readFileSync(join(dir, name)).toString('base64')}`;
+    }
+  }
+  return { state, avatars };
 }
