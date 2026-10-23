@@ -43,15 +43,15 @@ Student learning to code by building games and websites, now digging into AI and
 
 <p align="center"><picture>
   <source media="(max-width: 600px)" srcset="assets/stats/telemetry-mobile.svg">
-  <img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 44 contributions in the last year, 36 commits in the last year, 4 issues, 4 public repos, 2 days current streak, 2 days longest streak. Synced 2026-10-22 08:39 UTC.">
+  <img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 46 contributions in the last year, 38 commits in the last year, 4 issues, 4 public repos, 2 days current streak, 2 days longest streak. Synced 2026-10-23 08:35 UTC.">
 </picture></p>
 <p align="center"><picture>
   <source media="(max-width: 600px)" srcset="assets/stats/languages-mobile.svg">
-  <img src="assets/stats/languages.svg" width="100%" alt="Language orbits: JavaScript 65.5%, TypeScript 17.6%, CSS 7.6%, GLSL 5.4%, HTML 3.8%">
+  <img src="assets/stats/languages.svg" width="100%" alt="Language orbits: JavaScript 66.6%, TypeScript 17.1%, CSS 7.4%, GLSL 5.3%, HTML 3.6%">
 </picture></p>
 <p align="center"><picture>
   <source media="(max-width: 600px)" srcset="assets/galaxy/galaxy-mobile.svg">
-  <img src="assets/galaxy/galaxy.svg" width="100%" alt="Contribution galaxy: 44 contributions in the last year · longest streak 2 days">
+  <img src="assets/galaxy/galaxy.svg" width="100%" alt="Contribution galaxy: 46 contributions in the last year · longest streak 2 days">
 </picture></p>
 
 <picture>
@@ -86,11 +86,11 @@ Student learning to code by building games and websites, now digging into AI and
 <summary><b>Ship's log</b> · recent transmissions</summary>
 
 <!-- LOG:START -->
+- 2026-10-22 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/61ddd9c7dd968a6d40b56bf555843334fe94473c) · Kittikarn1752/Kittikarn1752
+- 2026-10-21 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/b34d715e813d10ad79a3e740a82bb9c2571fc899) · Kittikarn1752/Kittikarn1752
+- 2026-10-22 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/554500f0dcfaed903a22340bd8fb4cc6af05e341) · Kittikarn1752/Kittikarn1752
 - 2026-10-22 · [Created branch main](https://github.com/Kittikarn1752/Kittikarn1752.github.io/tree/main) · Kittikarn1752/Kittikarn1752.github.io
 - 2026-10-22 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/9f57d33755bdda0a16c5b12e94ed7341ea67d516) · Kittikarn1752/Kittikarn1752
-- 2026-10-22 · [Opened issue \#4: feed\|star](https://github.com/Kittikarn1752/Kittikarn1752/issues/4) · Kittikarn1752/Kittikarn1752
-- 2026-10-22 · [Opened issue \#3: feed\|star](https://github.com/Kittikarn1752/Kittikarn1752/issues/3) · Kittikarn1752/Kittikarn1752
-- 2026-10-22 · [Opened issue \#2: feed\|star](https://github.com/Kittikarn1752/Kittikarn1752/issues/2) · Kittikarn1752/Kittikarn1752
 <!-- LOG:END -->
 
 </details>
