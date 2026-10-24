@@ -43,7 +43,7 @@ Student learning to code by building games and websites, now digging into AI and
 
 <p align="center"><picture>
   <source media="(max-width: 600px)" srcset="assets/stats/telemetry-mobile.svg">
-  <img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 46 contributions in the last year, 38 commits in the last year, 4 issues, 4 public repos, 2 days current streak, 2 days longest streak. Synced 2026-10-23 08:35 UTC.">
+  <img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 46 contributions in the last year, 38 commits in the last year, 4 issues, 4 public repos, 2 days longest streak. Synced 2026-10-24 08:10 UTC.">
 </picture></p>
 <p align="center"><picture>
   <source media="(max-width: 600px)" srcset="assets/stats/languages-mobile.svg">
