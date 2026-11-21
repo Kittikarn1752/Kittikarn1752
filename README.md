@@ -43,7 +43,7 @@ Student learning to code by building games and websites, now digging into AI and
 
 <p align="center"><picture>
   <source media="(max-width: 600px)" srcset="assets/stats/telemetry-mobile.svg">
-  <img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 46 contributions in the last year, 38 commits in the last year, 4 issues, 4 public repos, 2 days longest streak. Synced 2026-11-20 11:43 UTC.">
+  <img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 46 contributions in the last year, 38 commits in the last year, 4 issues, 4 public repos, 2 days longest streak. Synced 2026-11-21 11:07 UTC.">
 </picture></p>
 <p align="center"><picture>
   <source media="(max-width: 600px)" srcset="assets/stats/languages-mobile.svg">
@@ -90,7 +90,6 @@ Student learning to code by building games and websites, now digging into AI and
 - 2026-10-21 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/b34d715e813d10ad79a3e740a82bb9c2571fc899) · Kittikarn1752/Kittikarn1752
 - 2026-10-22 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/554500f0dcfaed903a22340bd8fb4cc6af05e341) · Kittikarn1752/Kittikarn1752
 - 2026-10-22 · [Created branch main](https://github.com/Kittikarn1752/Kittikarn1752.github.io/tree/main) · Kittikarn1752/Kittikarn1752.github.io
-- 2026-10-22 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/9f57d33755bdda0a16c5b12e94ed7341ea67d516) · Kittikarn1752/Kittikarn1752
 <!-- LOG:END -->
 
 </details>
