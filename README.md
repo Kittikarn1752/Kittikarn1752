@@ -43,7 +43,7 @@ Student learning to code by building games and websites, now digging into AI and
 
 <p align="center"><picture>
   <source media="(max-width: 600px)" srcset="assets/stats/telemetry-mobile.svg">
-  <img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 46 contributions in the last year, 38 commits in the last year, 4 issues, 4 public repos, 2 days longest streak. Synced 2026-11-21 11:07 UTC.">
+  <img src="assets/stats/telemetry.svg" width="100%" alt="Observatory: 46 contributions in the last year, 38 commits in the last year, 4 issues, 4 public repos, 2 days longest streak. Synced 2026-11-22 11:28 UTC.">
 </picture></p>
 <p align="center"><picture>
   <source media="(max-width: 600px)" srcset="assets/stats/languages-mobile.svg">
@@ -81,18 +81,6 @@ Student learning to code by building games and websites, now digging into AI and
 <p align="center">
   <a href="https://github.com/Kittikarn1752/Kittikarn1752.github.io"><img src="assets/missions/m1.svg" width="270" alt="Kittikarn1752.github.io — Event Horizon: Kittikarn's WebGL companion site"></a>
 </p>
-
-<details>
-<summary><b>Ship's log</b> · recent transmissions</summary>
-
-<!-- LOG:START -->
-- 2026-10-22 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/61ddd9c7dd968a6d40b56bf555843334fe94473c) · Kittikarn1752/Kittikarn1752
-- 2026-10-21 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/b34d715e813d10ad79a3e740a82bb9c2571fc899) · Kittikarn1752/Kittikarn1752
-- 2026-10-22 · [Pushed to main](https://github.com/Kittikarn1752/Kittikarn1752/commit/554500f0dcfaed903a22340bd8fb4cc6af05e341) · Kittikarn1752/Kittikarn1752
-- 2026-10-22 · [Created branch main](https://github.com/Kittikarn1752/Kittikarn1752.github.io/tree/main) · Kittikarn1752/Kittikarn1752.github.io
-<!-- LOG:END -->
-
-</details>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/ui/h-contact-dark.svg">

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-21T11:07:10Z",
+  "generatedAt": "2026-11-22T11:28:30Z",
   "user": {
     "login": "Kittikarn1752",
     "name": "Kittikarn",
@@ -45,41 +45,6 @@
     }
   ],
   "calendar": [
-    {
-      "date": "2025-11-16",
-      "count": 0,
-      "level": 0
-    },
-    {
-      "date": "2025-11-17",
-      "count": 0,
-      "level": 0
-    },
-    {
-      "date": "2025-11-18",
-      "count": 0,
-      "level": 0
-    },
-    {
-      "date": "2025-11-19",
-      "count": 0,
-      "level": 0
-    },
-    {
-      "date": "2025-11-20",
-      "count": 0,
-      "level": 0
-    },
-    {
-      "date": "2025-11-21",
-      "count": 0,
-      "level": 0
-    },
-    {
-      "date": "2025-11-22",
-      "count": 0,
-      "level": 0
-    },
     {
       "date": "2025-11-23",
       "count": 0,
@@ -1899,6 +1864,11 @@
       "date": "2026-11-21",
       "count": 0,
       "level": 0
+    },
+    {
+      "date": "2026-11-22",
+      "count": 0,
+      "level": 0
     }
   ],
   "topRepos": [
@@ -1917,34 +1887,5 @@
       "url": "https://github.com/Kittikarn1752/Kittikarn1752.github.io"
     }
   ],
-  "events": [
-    {
-      "type": "PushEvent",
-      "repo": "Kittikarn1752/Kittikarn1752",
-      "title": "Pushed to main",
-      "url": "https://github.com/Kittikarn1752/Kittikarn1752/commit/61ddd9c7dd968a6d40b56bf555843334fe94473c",
-      "createdAt": "2026-10-22T01:09:33Z"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "Kittikarn1752/Kittikarn1752",
-      "title": "Pushed to main",
-      "url": "https://github.com/Kittikarn1752/Kittikarn1752/commit/b34d715e813d10ad79a3e740a82bb9c2571fc899",
-      "createdAt": "2026-10-21T15:05:23Z"
-    },
-    {
-      "type": "PushEvent",
-      "repo": "Kittikarn1752/Kittikarn1752",
-      "title": "Pushed to main",
-      "url": "https://github.com/Kittikarn1752/Kittikarn1752/commit/554500f0dcfaed903a22340bd8fb4cc6af05e341",
-      "createdAt": "2026-10-22T11:48:20Z"
-    },
-    {
-      "type": "CreateEvent",
-      "repo": "Kittikarn1752/Kittikarn1752.github.io",
-      "title": "Created branch main",
-      "url": "https://github.com/Kittikarn1752/Kittikarn1752.github.io/tree/main",
-      "createdAt": "2026-10-22T02:10:06Z"
-    }
-  ]
+  "events": []
 }
